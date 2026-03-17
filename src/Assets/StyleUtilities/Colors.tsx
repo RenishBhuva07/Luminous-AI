@@ -1,0 +1,26 @@
+export const Colors = {
+    DefaultWhite: 'white',
+    DefaultRedColor: "red",
+    Defaultblack: 'black',
+    NoirBlack: "#101010",
+    SunburstFlame: "#FE8C00",
+    SunburstFlameFaded: "rgba(254, 140, 0, 0.08)",
+    MoonDust: "#D6D6D6",
+    SteelMist: "#878787",
+    FrostedHaze: "#F5F5F5",
+    SunlitAlmond: "#FFF8F0",
+    CloudWhisper: "#E5E5E5",
+    FrostedLilacMist: "#F5F5FF",
+    SoftSilver: "#EAEAEA",
+    PeachWhisper: "#FFF5F2",
+    ErrorRed: "#FF3B30",
+    ErrorRedLight: "#F14141",
+    SunburstFlameLight: "#FEAD1D05",
+    SilverHaze: "#C2C2C2",
+    FrostedMist: "#EDEDED",
+    BlackTransparent: "rgba(0,0,0,0.5)",
+    DarkCharcoal: "#292A2E",
+
+
+    LuminousGreen: "#21AF85",
+};
