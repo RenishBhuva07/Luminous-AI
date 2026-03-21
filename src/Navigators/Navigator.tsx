@@ -32,7 +32,7 @@ export function replace(name: string, params?: object) {
 /**
  * Reset the navigation state to a specific screen
  */
-export function resetTo(name: string, params?: object) {
+export function resetNavigation(name: string, params?: object) {
     if (navigationRef.isReady()) {
         navigationRef.reset({
             index: 0,

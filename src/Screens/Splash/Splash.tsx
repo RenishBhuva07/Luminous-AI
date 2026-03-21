@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     StyleSheet,
     Dimensions,
     Image,
 } from 'react-native';
-import MainContainer from '../Common/MainContainer';
-import { IMAGES } from '../Assets/Images';
-import { Colors } from '../Assets/StyleUtilities/Colors';
+import MainContainer from '../../Common/MainContainer';
+import { IMAGES } from '../../Assets/Images';
+import { Colors } from '../../Assets/StyleUtilities/Colors';
+import { resetNavigation } from '../../Navigators/Navigator';
 
 const { width, height } = Dimensions.get('window');
 
 const SplashScreen: React.FC = () => {
+
+
+    useEffect(() => {
+        setTimeout(() => {
+            resetNavigation("Intro");
+        }, 2000);
+    }, [])
+
+
     return (
         <MainContainer
             statusBarStyle="light-content"

@@ -1,6 +1,18 @@
 export const Fonts = {
-    regular: 'Inter-Regular',
-    medium: 'Inter-Medium',
-    semiBold: 'Inter-SemiBold',
-    bold: 'Inter-Bold',
+    ranade: {
+        regular: 'Ranade-Regular',
+        medium: 'Ranade-Medium',
+        semiBold: 'Ranade-SemiBold',
+        bold: 'Ranade-Bold',
+    },
+    poppins: {
+        regular: 'Poppins-Regular',
+        medium: 'Poppins-Medium',
+        semiBold: 'Poppins-SemiBold',
+        bold: 'Poppins-Bold',
+    },
+    regular: 'Poppins-Regular',
+    medium: 'Poppins-Medium',
+    semiBold: 'Poppins-SemiBold',
+    bold: 'Poppins-Bold',
 };
