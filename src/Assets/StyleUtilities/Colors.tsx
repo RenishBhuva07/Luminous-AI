@@ -1,26 +1,33 @@
 export const Colors = {
-    DefaultWhite: 'white',
-    DefaultRedColor: "red",
-    Defaultblack: 'black',
-    NoirBlack: "#101010",
-    SunburstFlame: "#FE8C00",
-    SunburstFlameFaded: "rgba(254, 140, 0, 0.08)",
-    MoonDust: "#D6D6D6",
-    SteelMist: "#878787",
-    FrostedHaze: "#F5F5F5",
-    SunlitAlmond: "#FFF8F0",
-    CloudWhisper: "#E5E5E5",
-    FrostedLilacMist: "#F5F5FF",
-    SoftSilver: "#EAEAEA",
-    PeachWhisper: "#FFF5F2",
-    ErrorRed: "#FF3B30",
-    ErrorRedLight: "#F14141",
-    SunburstFlameLight: "#FEAD1D05",
-    SilverHaze: "#C2C2C2",
-    FrostedMist: "#EDEDED",
-    BlackTransparent: "rgba(0,0,0,0.5)",
-    DarkCharcoal: "#292A2E",
-
-
+    // Highlights
     LuminousGreen: "#21AF85",
+    Success: "#008552",
+    Misty: "#BAEBCB",
+    CrimsonPulse: "#FF3B30",
+    BurntEmber: "#D92A0F",
+
+    // Backgrounds
+    DefaultWhite: "#FFFFFF",
+    IvoryMist: "#EEEEED",
+    MoltenRust: "#D92A0F",
+    BlushVeil: "#D6D6D6",
+    FreshSage: "#92D08D",
+    MintHaze: "#BAEBCB",
+    UrbanGrey: "#B9B9B9",
+    CloudSilk: "#E4E4E4",
+
+    // Foregrounds (Text)
+    MidnightInkText: "#0F1721",
+    PureWhiteText: "#FFFFFF",
+    SlateGraphiteText: "#3F454D",
+    MutedSteelText: "#6F747A",
+    TrueBlackText: "#000000",
+
+    // Others (Neutrals / Surfaces)
+    SilverDust: "#CBCBCA",
+    SoftLinen: "#EEEEEB",
+    FogGrey: "#D9D9D9",
+
+    // Rare
+    CarbonSlate: "#2C3035"
 };
