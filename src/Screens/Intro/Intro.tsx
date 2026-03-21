@@ -25,8 +25,8 @@ const Intro: React.FC = () => {
                     <Image source={IMAGES.Robot_Right_Hand} style={styles.rightHand} resizeMode="contain" />
 
                     <Text style={styles.title}>
-                        <Text style={styles.primaryText}>ChatGPT</Text>
-                        <Text style={styles.darkText}> - Your AI</Text>
+                        <Text style={styles.primaryText}>Luminous</Text>
+                        <Text style={styles.darkText}> - AI</Text>
                     </Text>
                     <Text style={styles.title}>
                         <Text style={styles.darkText}>Language </Text>
@@ -34,7 +34,7 @@ const Intro: React.FC = () => {
                     </Text>
 
                     <Text style={styles.subtitle}>
-                        Unlock Infinite Conversations: ChatGPT,{"\n"}Your AI Companion!
+                        Unlock Infinite Conversations: Luminous,{"\n"}Your AI Companion!
                     </Text>
 
                     <View style={styles.buttonContainer}>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         opacity: 0.95,
     },
     title: {
-        ...Typography.h4Bold,
+        ...Typography.h1RanadeBold,
         textAlign: 'center',
     },
     primaryText: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         color: Colors.MidnightInkText,
     },
     subtitle: {
-        ...Typography.bodyLargeRegular,
+        ...Typography.bodyMediumPoppinsRegular,
         color: Colors.MutedSteelText,
         textAlign: 'center',
         marginTop: ResponsivePixels.size6,
