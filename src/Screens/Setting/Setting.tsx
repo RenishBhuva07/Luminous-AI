@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Switch } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Switch, Modal } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { resetNavigation } from "../../Navigators/Navigator";
 import { ChevronRight, Bookmark, Archive, Smartphone, Bell, Lock, Globe, Moon, Crown, LogOut } from "lucide-react-native";
 import { Colors } from "../../Assets/StyleUtilities/Colors";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
@@ -7,7 +9,14 @@ import { Typography } from "../../Theme/Typographys";
 import { IMAGES } from "../../Assets/Images";
 
 export default function Setting() {
+    const navigation = useNavigation<any>();
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
+
+    const handleLogout = () => {
+        setIsLogoutModalVisible(false);
+        resetNavigation("Login");
+    };
 
     const renderHeader = () => (
         <View style={styles.headerContainer}>
@@ -27,10 +36,11 @@ export default function Setting() {
         IconComponent: any,
         iconBgColor: string,
         rightElement?: React.ReactNode,
-        showBorder: boolean = true
+        showBorder: boolean = true,
+        onPress?: () => void
     ) => (
         <View>
-            <TouchableOpacity style={styles.menuItem} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.menuItem} activeOpacity={0.7} onPress={onPress}>
                 <View style={[styles.iconContainer, { backgroundColor: iconBgColor }]}>
                     <IconComponent color={Colors.DefaultWhite} size={20} />
                 </View>
@@ -88,30 +98,61 @@ export default function Setting() {
 
                 {/* Group 2 */}
                 <View style={styles.cardGroup}>
-                    {renderMenuItem('Notification', Bell, '#FF5B65')}
-                    {renderMenuItem('Privacy and Security', Lock, '#A3A8B1')}
+                    {renderMenuItem('Notification', Bell, '#FF5B65', null, true, () => navigation.navigate('Notifications'))}
+                    {renderMenuItem('Privacy and Security', Lock, '#A3A8B1', null, true, () => navigation.navigate('PrivacySecurity'))}
                     {renderMenuItem(
                         'Language', 
                         Globe, 
                         '#9E57E5',
                         <View style={styles.languageBadge}>
                             <Text style={styles.languageBadgeText}>English</Text>
-                        </View>
+                        </View>,
+                        true,
+                        () => navigation.navigate('Language')
                     )}
                     {renderToggleItem('Appearance', Moon, '#21AF85', isDarkMode, setIsDarkMode, false)}
                 </View>
 
                 {/* Group 3 */}
                 <View style={styles.cardGroup}>
-                    {renderMenuItem('Chat GPT 4.0 Premium', Crown, '#826EEA', null, false)}
+                    {renderMenuItem('Luminous Premium', Crown, '#826EEA', null, false, () => navigation.navigate('Premium'))}
                 </View>
 
                 {/* Group 4 */}
                 <View style={styles.cardGroup}>
-                    {renderMenuItem('Log Out', LogOut, '#FF4B55', null, false)}
+                    {renderMenuItem('Log Out', LogOut, '#FF4B55', null, false, () => setIsLogoutModalVisible(true))}
                 </View>
 
             </ScrollView>
+
+            {/* Logout Modal */}
+            <Modal
+                visible={isLogoutModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setIsLogoutModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Log Out</Text>
+                        <Text style={styles.modalText}>Are you sure you want to log out?</Text>
+                        <View style={styles.modalActions}>
+                            <TouchableOpacity 
+                                style={[styles.modalButton, styles.cancelButton]} 
+                                onPress={() => setIsLogoutModalVisible(false)}
+                            >
+                                <Text style={styles.cancelButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={[styles.modalButton, styles.logoutButton]} 
+                                onPress={handleLogout}
+                            >
+                                <Text style={styles.logoutButtonText}>Log Out</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -206,5 +247,56 @@ const styles = StyleSheet.create({
     languageBadgeText: {
         ...Typography.bodySmallPoppinsMediumLoose,
         color: '#4A8BFF',
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        width: '80%',
+        backgroundColor: Colors.DefaultWhite,
+        borderRadius: ResponsivePixels.size20,
+        padding: ResponsivePixels.size24,
+        alignItems: 'center',
+    },
+    modalTitle: {
+        ...Typography.h1RanadeBold,
+        fontSize: ResponsivePixels.size22,
+        color: Colors.MidnightInkText,
+        marginBottom: ResponsivePixels.size12,
+    },
+    modalText: {
+        ...Typography.bodyMediumPoppinsRegular,
+        color: Colors.MutedSteelText,
+        textAlign: 'center',
+        marginBottom: ResponsivePixels.size24,
+    },
+    modalActions: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+        gap: ResponsivePixels.size12,
+    },
+    modalButton: {
+        flex: 1,
+        paddingVertical: ResponsivePixels.size12,
+        borderRadius: ResponsivePixels.size12,
+        alignItems: 'center',
+    },
+    cancelButton: {
+        backgroundColor: Colors.FogGrey,
+    },
+    logoutButton: {
+        backgroundColor: '#FF4B55',
+    },
+    cancelButtonText: {
+        ...Typography.bodyLargePoppinsMedium,
+        color: Colors.MidnightInkText,
+    },
+    logoutButtonText: {
+        ...Typography.bodyLargePoppinsMedium,
+        color: Colors.DefaultWhite,
     },
 });
