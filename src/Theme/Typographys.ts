@@ -138,7 +138,11 @@ export const Typography = {
         fontSize: 11,
         lineHeight: 16.5,
     },
-
+    bodySuperSmallPoppinsSemiBoldLoose: {
+        fontFamily: Fonts.poppins.semiBold,
+        fontSize: 11,
+        lineHeight: 16.5,
+    },
 };
 
 

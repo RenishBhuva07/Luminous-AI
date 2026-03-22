@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useRef } from 'react';
 import {
     View,
     Text,
@@ -10,6 +10,7 @@ import {
     TextInputSubmitEditingEventData,
     Image,
     ImageProps,
+    Pressable,
 } from 'react-native';
 import { Colors } from '../Assets/StyleUtilities/Colors';
 import ResponsivePixels from '../Assets/StyleUtilities/ResponsivePixels';
@@ -45,6 +46,7 @@ type IFloatingTextInputProps = {
     rightIconStyle?: ImageProps['style'];
     rightIconContainerStyle?: ViewStyle;
     blurOnSubmit?: boolean;
+    rightComponent?: React.ReactNode;
 };
 
 export const FloatingTextInput = forwardRef<TextInput, IFloatingTextInputProps>(
@@ -78,10 +80,12 @@ export const FloatingTextInput = forwardRef<TextInput, IFloatingTextInputProps>(
             rightIconStyle,
             rightIconContainerStyle,
             blurOnSubmit = false,
+            rightComponent,
         },
         ref
     ) => {
         const [isFocused, setIsFocused] = useState<boolean>(false);
+        const internalRef = useRef<TextInput>(null);
 
         if (value && value !== "") {
             if (!isFocused) {
@@ -105,33 +109,46 @@ export const FloatingTextInput = forwardRef<TextInput, IFloatingTextInputProps>(
             <View style={[
                 containerStyle,
                 {
-                    marginTop: ResponsivePixels.size35,
-                    marginBottom: ResponsivePixels.size10,
+                    marginTop: ResponsivePixels.size24,
+                    // marginBottom: ResponsivePixels.size10,
                 }
             ]}>
                 <View style={{
                     position: "relative",
                 }}>
-                    <Text style={[
-                        {
-                            position: "absolute",
-                            top: !isFocused ? '32%' : "-50%",
-                            // top: ResponsivePixels.size16 + (ResponsivePixels.size14 / 8),
-                            left: !isFocused ? ResponsivePixels.size16 : 0,
-                            color: !isFocused ? Colors.Defaultblack : Colors.SunburstFlame,
+                    <Text
+                        suppressHighlighting={true}
+                        onPress={() => internalRef.current?.focus()}
+                        style={[
+                            {
+                                position: "absolute",
+                                top: !isFocused ? '38%' : "-10%",
+                                // top: ResponsivePixels.size16 + (ResponsivePixels.size14 / 8),
+                                left: ResponsivePixels.size12,
+                                color: !isFocused ? Colors.SlateGraphiteText : Colors.LuminousGreen,
+                                backgroundColor: Colors.DefaultWhite,
+                                paddingHorizontal: ResponsivePixels.size4,
+                                zIndex: 10,
 
-                            // fontSize: ResponsivePixels.size14,
-                            ...Typography.bodyMediumMedium
-                        },
-                        labelStyle
-                    ]}>
-                        {label} {isRequired ? '*' : ''}
+                                // fontSize: ResponsivePixels.size14,
+                                ...Typography.bodyLargePoppinsRegular
+                            },
+                            labelStyle
+                        ]}>
+                        {label}{isRequired ? '*' : ''}
                     </Text>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
                         <TextInput
-                            ref={ref}
+                            ref={(node) => {
+                                internalRef.current = node;
+                                if (typeof ref === 'function') {
+                                    ref(node);
+                                } else if (ref) {
+                                    ref.current = node;
+                                }
+                            }}
                             value={value}
                             onChangeText={onChangeText}
                             editable={editable}
@@ -146,18 +163,18 @@ export const FloatingTextInput = forwardRef<TextInput, IFloatingTextInputProps>(
                             style={[
                                 {
                                     flex: 1,
-                                    padding: ResponsivePixels.size16,
+                                    padding: ResponsivePixels.size14,
                                     fontSize: ResponsivePixels.size14,
                                     borderWidth: 1,
                                     borderRadius: 8,
-                                    borderColor: showError ? Colors.DefaultRedColor : isFocused ? Colors.SunburstFlame : Colors.Defaultblack,
+                                    borderColor: showError ? Colors.CrimsonPulse : isFocused ? Colors.LuminousGreen : Colors.SilverDust,
                                 },
                                 inputStyle,
                             ]}
                             autoCapitalize={autoCapitalize}
                             autoCorrect={autoCorrect}
-                            selectionColor={Colors.SunburstFlame}
-                            cursorColor={Colors.SunburstFlame}
+                            selectionColor={Colors.LuminousGreen}
+                            cursorColor={Colors.LuminousGreen}
                             inputMode={inputMode}
                             returnKeyLabel={returnKeyLabel}
                             autoFocus={autoFocus}
@@ -184,14 +201,32 @@ export const FloatingTextInput = forwardRef<TextInput, IFloatingTextInputProps>(
                                     height: ResponsivePixels.size25,
                                     width: ResponsivePixels.size25,
                                 },
-                                isFocused && { tintColor: Colors.SunburstFlame }
+                                isFocused && { tintColor: Colors.LuminousGreen }
                             ]} />
+                        </View>
+                    ) : rightComponent ? (
+                        <View
+                            style={[
+                                rightIconContainerStyle,
+                                {
+                                    position: 'absolute',
+                                    right: ResponsivePixels.size10,
+                                    top: ResponsivePixels.size10,
+                                    bottom: 0,
+                                    justifyContent: 'center',
+                                    zIndex: 10,
+                                }]}
+                            onTouchEnd={() => {
+                                isFocused && onPressRightIcon && onPressRightIcon();
+                            }}
+                        >
+                            {rightComponent}
                         </View>
                     ) : null}
                 </View>
 
                 {showError && error ? (
-                    <Text style={{ color: Colors.DefaultRedColor, marginTop: ResponsivePixels.size4, fontSize: ResponsivePixels.size12 }}>{error}</Text>
+                    <Text style={{ color: Colors.CrimsonPulse, marginTop: ResponsivePixels.size4, fontSize: ResponsivePixels.size12 }}>{error}</Text>
                 ) : null}
             </View>
         );

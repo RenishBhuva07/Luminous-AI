@@ -5,9 +5,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomHeader from '../Common/CustomHeader';
 
 interface HeaderOption {
-    icon?: string
-    onPress?: () => void
-    color?: string
+    icon?: any;
+    customIcon?: React.ReactNode;
+    onPress?: () => void;
+    color?: string;
 }
 interface CustomHeaderProps {
     headerTitle?: string

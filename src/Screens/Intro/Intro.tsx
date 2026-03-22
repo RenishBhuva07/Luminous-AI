@@ -6,6 +6,7 @@ import { IMAGES } from '../../Assets/Images';
 import CustomButton from '../../Common/CustomButton';
 import ResponsivePixels from '../../Assets/StyleUtilities/ResponsivePixels';
 import { Typography } from '../../Theme/Typographys';
+import { navigate } from '../../Navigators/Navigator';
 
 const Intro: React.FC = () => {
     return (
@@ -26,7 +27,7 @@ const Intro: React.FC = () => {
 
                     <Text style={styles.title}>
                         <Text style={styles.primaryText}>Luminous</Text>
-                        <Text style={styles.darkText}> - AI</Text>
+                        <Text style={styles.darkText}> - Your AI</Text>
                     </Text>
                     <Text style={styles.title}>
                         <Text style={styles.darkText}>Language </Text>
@@ -38,10 +39,10 @@ const Intro: React.FC = () => {
                     </Text>
 
                     <View style={styles.buttonContainer}>
-                        <CustomButton title="Log In" onPress={() => { }} />
+                        <CustomButton title="Log In" onPress={() => navigate('Login')} />
                     </View>
                     <View style={styles.buttonContainer}>
-                        <CustomButton title="Create Account" onPress={() => { }} variant="outlined" />
+                        <CustomButton title="Create Account" onPress={() => navigate('CreateAccount')} variant="outlined" />
                     </View>
                 </View>
             </View>
@@ -58,11 +59,11 @@ const styles = StyleSheet.create({
         flex: 0.56,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: ResponsivePixels.size18,
+        paddingTop: ResponsivePixels.size84,
     },
     robotImage: {
-        width: ResponsivePixels.size300,
-        height: ResponsivePixels.size320,
+        // width: ResponsivePixels.size300,
+        height: ResponsivePixels.size330,
     },
     bottomSection: {
         flex: 0.44,
@@ -73,18 +74,18 @@ const styles = StyleSheet.create({
     },
     leftHand: {
         position: 'absolute',
-        left: 0,
-        top: ResponsivePixels.size8,
-        width: ResponsivePixels.size105,
-        height: ResponsivePixels.size140,
+        right: 80,
+        bottom: 150,
+        width: ResponsivePixels.size390,
+        height: ResponsivePixels.size370,
         opacity: 0.95,
     },
     rightHand: {
         position: 'absolute',
-        right: 0,
-        top: ResponsivePixels.size8,
-        width: ResponsivePixels.size105,
-        height: ResponsivePixels.size140,
+        left: 80,
+        bottom: 150,
+        width: ResponsivePixels.size390,
+        height: ResponsivePixels.size370,
         opacity: 0.95,
     },
     title: {

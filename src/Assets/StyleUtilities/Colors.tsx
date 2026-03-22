@@ -7,6 +7,7 @@ export const Colors = {
     BurntEmber: "#D92A0F",
 
     // Backgrounds
+    DefaultBlack: "#000000",
     DefaultWhite: "#FFFFFF",
     IvoryMist: "#EEEEED",
     MoltenRust: "#D92A0F",

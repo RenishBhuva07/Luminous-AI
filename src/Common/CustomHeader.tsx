@@ -6,7 +6,8 @@ import { Colors } from '../Assets/StyleUtilities/Colors';
 import { Typography } from '../Theme/Typographys';
 
 interface HeaderOption {
-    icon?: string;
+    icon?: any;
+    customIcon?: React.ReactNode;
     onPress?: () => void;
     color?: string;
 }
@@ -22,7 +23,7 @@ interface CustomHeaderProps {
 
 const CustomHeader: React.FC<CustomHeaderProps> = ({
     headerTitle = "Header Title",
-    headerTitleColor = Colors.NoirBlack,
+    headerTitleColor = Colors.MidnightInkText,
     headerBackgroundColor,
     headerLeft,
     headerRight,
@@ -40,11 +41,15 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
                 onPress={headerLeft?.onPress}
                 activeOpacity={0.7}
             >
-                <Image
-                    source={headerLeft?.icon}
-                    style={{ width: ResponsivePixels.size24, height: ResponsivePixels.size24, tintColor: headerLeft?.color }}
-                    resizeMode="contain"
-                />
+                {headerLeft?.customIcon ? (
+                    headerLeft.customIcon
+                ) : (
+                    <Image
+                        source={headerLeft?.icon}
+                        style={{ width: ResponsivePixels.size24, height: ResponsivePixels.size24, tintColor: headerLeft?.color }}
+                        resizeMode="contain"
+                    />
+                )}
             </TouchableOpacity>
         );
     };
@@ -58,11 +63,15 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
                 onPress={headerRight?.onPress}
                 activeOpacity={0.7}
             >
-                <Image
-                    source={headerRight?.icon}
-                    style={{ width: ResponsivePixels.size24, height: ResponsivePixels.size24, tintColor: headerRight?.color }}
-                    resizeMode="contain"
-                />
+                {headerRight?.customIcon ? (
+                    headerRight.customIcon
+                ) : (
+                    <Image
+                        source={headerRight?.icon}
+                        style={{ width: ResponsivePixels.size24, height: ResponsivePixels.size24, tintColor: headerRight?.color }}
+                        resizeMode="contain"
+                    />
+                )}
             </TouchableOpacity>
         );
     };
@@ -100,7 +109,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: ResponsivePixels.size20,
+        paddingHorizontal: ResponsivePixels.size12,
         paddingVertical: ResponsivePixels.size15,
         minHeight: ResponsivePixels.size56,
     },
@@ -122,10 +131,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     titleText: {
-        color: Colors.NoirBlack,
+        color: Colors.MidnightInkText,
         textAlign: 'center',
 
-        ...Typography.h6Bold,
+        ...Typography.h6PoppinsSemiBold,
     },
     placeholder: {
         // width: ResponsivePixels.size40,
