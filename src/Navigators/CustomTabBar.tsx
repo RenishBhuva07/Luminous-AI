@@ -21,7 +21,7 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
                 <Svg width={W} height={TAB_BAR_HEIGHT + HUMP_HEIGHT} viewBox={`0 0 ${W} ${TAB_BAR_HEIGHT + HUMP_HEIGHT}`} fill="none">
                     <Path
                         d={`M 0 ${HUMP_HEIGHT} L ${W / 2 - 65} ${HUMP_HEIGHT} C ${W / 2 - 35} ${HUMP_HEIGHT}, ${W / 2 - 45} 5, ${W / 2} 5 C ${W / 2 + 45} 5, ${W / 2 + 35} ${HUMP_HEIGHT}, ${W / 2 + 65} ${HUMP_HEIGHT} L ${W} ${HUMP_HEIGHT} L ${W} ${TAB_BAR_HEIGHT + HUMP_HEIGHT} L 0 ${TAB_BAR_HEIGHT + HUMP_HEIGHT} Z`}
-                        fill="#FFFFFF"
+                        fill={Colors.DefaultWhite}
                     />
                 </Svg>
             </View>

@@ -2,33 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CustomTabBar } from "./CustomTabBar";
+import Home from "../Screens/Home/Home";
+import History from "../Screens/History/History";
+import News from "../Screens/News/News";
+import Setting from "../Screens/Setting/Setting";
+import Chat from "../Screens/Chat/Chat";
 
 // Temporary Dummy Screens
-const HomeScreen = () => (
-    <View style={styles.screen}>
-        <Text>Home Screen</Text>
-    </View>
-);
-const HistoryScreen = () => (
-    <View style={styles.screen}>
-        <Text>History Screen</Text>
-    </View>
-);
-const MiddleScreen = () => (
-    <View style={styles.screen}>
-        <Text>Middle Screen Action</Text>
-    </View>
-);
-const NewsScreen = () => (
-    <View style={styles.screen}>
-        <Text>News Screen</Text>
-    </View>
-);
-const SettingScreen = () => (
-    <View style={styles.screen}>
-        <Text>Setting Screen</Text>
-    </View>
-);
 
 const Tab = createBottomTabNavigator();
 
@@ -41,11 +21,11 @@ export default function BottomTabs() {
             }}
             tabBar={(props) => <CustomTabBar {...props} />}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="History" component={HistoryScreen} />
-            <Tab.Screen name="Middle" component={MiddleScreen} options={{ tabBarLabel: "" }} />
-            <Tab.Screen name="News" component={NewsScreen} />
-            <Tab.Screen name="Setting" component={SettingScreen} />
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="History" component={History} />
+            <Tab.Screen name="Middle" component={Chat} options={{ tabBarLabel: "" }} />
+            <Tab.Screen name="News" component={News} />
+            <Tab.Screen name="Setting" component={Setting} />
         </Tab.Navigator>
     );
 }
