@@ -16,13 +16,15 @@ const POPULAR_PROMPTS = [
 const RECENT_CHATS = [
     { id: '1', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
     { id: '2', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
+    { id: '3', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
+    { id: '4', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
 ];
 
 export default function Home() {
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                
+
                 {/* Header Profile Section */}
                 <View style={styles.headerContainer}>
                     <View style={styles.profileSection}>
@@ -40,7 +42,7 @@ export default function Home() {
                 {/* Search Bar */}
                 <View style={styles.searchContainer}>
                     <Search color={Colors.MutedSteelText} size={22} style={styles.searchIcon} />
-                    <TextInput 
+                    <TextInput
                         style={styles.searchInput}
                         placeholder="Search for prompts"
                         placeholderTextColor={Colors.MutedSteelText}
@@ -86,7 +88,7 @@ export default function Home() {
                     </TouchableOpacity>
                 </View>
 
-                <FlatList 
+                <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={POPULAR_PROMPTS}
@@ -108,7 +110,7 @@ export default function Home() {
                     </TouchableOpacity>
                 </View>
 
-                <FlatList 
+                <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={RECENT_CHATS}
@@ -142,8 +144,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: ResponsivePixels.size20,
-        marginBottom: ResponsivePixels.size24,
+        paddingHorizontal: ResponsivePixels.size12,
+        marginBottom: ResponsivePixels.size20,
     },
     profileSection: {
         flexDirection: 'row',
@@ -172,13 +174,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.DefaultWhite,
-        marginHorizontal: ResponsivePixels.size20,
+        marginHorizontal: ResponsivePixels.size12,
         paddingHorizontal: ResponsivePixels.size16,
-        height: ResponsivePixels.size50,
+        paddingVertical: ResponsivePixels.size12,
         borderRadius: ResponsivePixels.size16,
         borderWidth: 1,
         borderColor: Colors.FogGrey,
-        marginBottom: ResponsivePixels.size32,
+        marginBottom: ResponsivePixels.size20,
     },
     searchIcon: {
         marginRight: ResponsivePixels.size10,
@@ -191,10 +193,10 @@ const styles = StyleSheet.create({
     bannerContainer: {
         backgroundColor: '#2A4A43', // Dark greenish custom color
         borderRadius: ResponsivePixels.size20,
-        marginHorizontal: ResponsivePixels.size20,
+        marginHorizontal: ResponsivePixels.size12,
         padding: ResponsivePixels.size20,
         paddingBottom: ResponsivePixels.size30,
-        marginBottom: ResponsivePixels.size32,
+        marginBottom: ResponsivePixels.size20,
         flexDirection: 'row',
         overflow: 'hidden',
     },
@@ -249,8 +251,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: ResponsivePixels.size20,
-        marginBottom: ResponsivePixels.size16,
+        paddingHorizontal: ResponsivePixels.size12,
+        marginBottom: ResponsivePixels.size8,
     },
     sectionTitle: {
         ...Typography.bodyLargePoppinsSemiBold,
@@ -262,16 +264,16 @@ const styles = StyleSheet.create({
         color: Colors.MutedSteelText,
     },
     horizontalList: {
-        paddingHorizontal: ResponsivePixels.size20,
+        paddingHorizontal: ResponsivePixels.size12,
         gap: ResponsivePixels.size12,
-        marginBottom: ResponsivePixels.size32,
+        marginBottom: ResponsivePixels.size20,
     },
     promptChip: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: ResponsivePixels.size8,
-        paddingHorizontal: ResponsivePixels.size16,
-        paddingVertical: ResponsivePixels.size10,
+        paddingHorizontal: ResponsivePixels.size12,
+        paddingVertical: ResponsivePixels.size9,
         borderRadius: ResponsivePixels.size12,
         borderWidth: 1,
         borderColor: Colors.FogGrey,
@@ -282,23 +284,21 @@ const styles = StyleSheet.create({
         color: Colors.MidnightInkText,
     },
     chatCard: {
-        width: ResponsivePixels.size180,
-        padding: ResponsivePixels.size20,
+        padding: ResponsivePixels.size16,
         borderRadius: ResponsivePixels.size20,
         borderWidth: 1,
         borderColor: Colors.FogGrey,
         backgroundColor: Colors.DefaultWhite,
-        marginRight: ResponsivePixels.size12,
     },
     chatCardTitle: {
         ...Typography.bodyLargePoppinsSemiBold,
         color: Colors.MidnightInkText,
-        marginBottom: ResponsivePixels.size12,
+        marginBottom: ResponsivePixels.size8,
     },
     chatCardDesc: {
-        ...Typography.bodySmallPoppinsRegularLoose,
+        ...Typography.bodyMediumPoppinsRegular,
         color: Colors.MutedSteelText,
-        marginBottom: ResponsivePixels.size16,
+        marginBottom: ResponsivePixels.size12,
     },
     moreOptions: {
         alignSelf: 'flex-end',

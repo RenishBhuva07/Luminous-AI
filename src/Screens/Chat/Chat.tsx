@@ -18,8 +18,8 @@ type Message = {
 };
 
 const SUGGESTIONS = [
-    "How does GPT use AI?",
-    "What else can GPT do?",
+    "How does Luminous use AI?",
+    "What else can Luminous do?",
     "What is the latest news in tech?"
 ];
 
@@ -46,7 +46,7 @@ export default function Chat() {
             setIsBotTyping(false);
             const botMsg: Message = {
                 id: (Date.now() + 1).toString(),
-                text: "Hello! This is Chat GPT. How can I help you today? 😊",
+                text: "Hello! This is Luminous. How can I help you today? 😊",
                 sender: 'bot',
                 suggestions: ["What would you not tell me?", "Why haven't"]
             };
@@ -70,7 +70,7 @@ export default function Chat() {
     const renderHeaderGraphic = () => (
         <View style={styles.headerGraphicContainer}>
             <Image source={IMAGES.Robot_Big} style={styles.robotImage} resizeMode="contain" />
-            <Text style={styles.welcomeText}>Welcome to the new{'\n'}Chat GPT</Text>
+            <Text style={styles.welcomeText}>Welcome to the {'\n'}Luminous</Text>
             <Text style={styles.subtitleText}>
                 Use the power of AI to find answers from the{'\n'}web, create written content, and more.
             </Text>
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     underlyingHeader: {
         paddingTop: ResponsivePixels.size60,
         paddingHorizontal: ResponsivePixels.size20,
-        paddingBottom: ResponsivePixels.size40,
+        paddingBottom: ResponsivePixels.size35,
         backgroundColor: Colors.DefaultWhite,
     },
     underlyingProfile: {
@@ -282,12 +282,12 @@ const styles = StyleSheet.create({
     },
     headerGraphicContainer: {
         alignItems: 'center',
-        marginBottom: ResponsivePixels.size20,
+        // marginBottom: ResponsivePixels.size20,
     },
     robotImage: {
         width: ResponsivePixels.size140,
         height: ResponsivePixels.size140,
-        marginBottom: ResponsivePixels.size16,
+        marginBottom: ResponsivePixels.size4,
     },
     welcomeText: {
         ...Typography.h1RanadeBold,
@@ -300,30 +300,29 @@ const styles = StyleSheet.create({
         ...Typography.bodyMediumPoppinsRegular,
         color: Colors.SlateGraphiteText,
         textAlign: 'center',
-        marginBottom: ResponsivePixels.size24,
+        marginBottom: ResponsivePixels.size20,
     },
     suggestionsContainer: {
         alignItems: 'center',
         gap: ResponsivePixels.size12,
-        marginBottom: ResponsivePixels.size24,
     },
     suggestionPill: {
         borderWidth: 1,
-        borderColor: '#4A8BFF',
+        borderColor: Colors.PrimaryBlue,
         borderRadius: ResponsivePixels.size20,
         paddingHorizontal: ResponsivePixels.size20,
         paddingVertical: ResponsivePixels.size10,
     },
     suggestionPillText: {
         ...Typography.bodyMediumPoppinsMedium,
-        color: '#4A8BFF',
+        color: Colors.PrimaryBlue,
     },
     separatorContainer: {
         width: '100%',
         height: 1,
         backgroundColor: Colors.FogGrey,
         opacity: 0.3,
-        marginBottom: ResponsivePixels.size24,
+        marginVertical: ResponsivePixels.size20,
     },
     separator: {},
     transparent: {
@@ -429,7 +428,7 @@ const styles = StyleSheet.create({
     },
     botSuggestionPill: {
         borderWidth: 1,
-        borderColor: '#4A8BFF',
+        borderColor: Colors.PrimaryBlue,
         borderRadius: ResponsivePixels.size16,
         paddingHorizontal: ResponsivePixels.size16,
         paddingVertical: ResponsivePixels.size8,
@@ -437,7 +436,7 @@ const styles = StyleSheet.create({
     },
     botSuggestionText: {
         ...Typography.bodyMediumPoppinsMedium,
-        color: '#4A8BFF',
+        color: Colors.PrimaryBlue,
     },
     stopRespondingContainer: {
         alignItems: 'center',

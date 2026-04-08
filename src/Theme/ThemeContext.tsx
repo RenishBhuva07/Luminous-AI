@@ -43,6 +43,8 @@ export const lightColors = {
     NoirBlack: "#111111",
     SunburstFlame: "#FF5B65",
     MoonDust: "#F0F0F0",
+
+    PrimaryBlue: "#165DFF",
 };
 
 export const darkColors = {

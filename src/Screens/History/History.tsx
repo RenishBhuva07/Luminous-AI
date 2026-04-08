@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: ResponsivePixels.size24,
     },
     headerTitle: {
         ...Typography.h1RanadeBold,
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     sectionHeaderContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: ResponsivePixels.size20,
+        marginVertical: ResponsivePixels.size16,
     },
     line: {
         flex: 1,
@@ -126,34 +125,34 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.FogGrey,
         backgroundColor: Colors.DefaultWhite,
-        marginHorizontal: ResponsivePixels.size12,
+        // marginHorizontal: ResponsivePixels.size12,
     },
     sectionPillText: {
         ...Typography.bodyMediumPoppinsSemiBold,
         color: Colors.MidnightInkText,
     },
     chatCard: {
-        padding: ResponsivePixels.size20,
+        padding: ResponsivePixels.size12,
         borderRadius: ResponsivePixels.size16,
         borderWidth: 1,
         borderColor: Colors.FogGrey,
         backgroundColor: Colors.DefaultWhite,
-        marginBottom: ResponsivePixels.size16,
+        marginBottom: ResponsivePixels.size12,
     },
     chatCardTopRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginBottom: ResponsivePixels.size12,
+        marginBottom: ResponsivePixels.size8,
     },
     chatCardTitle: {
         flex: 1,
         ...Typography.bodyLargePoppinsSemiBold,
         color: Colors.MidnightInkText,
-        marginRight: ResponsivePixels.size10,
+        // marginRight: ResponsivePixels.size10,
     },
     moreButton: {
-        padding: ResponsivePixels.size2,
+        // padding: ResponsivePixels.size2,
     },
     chatCardDesc: {
         ...Typography.bodySmallPoppinsRegularLoose,
