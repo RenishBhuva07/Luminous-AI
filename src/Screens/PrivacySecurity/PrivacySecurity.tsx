@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, ScrollView, Switch, TouchableOpacity } from "re
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Lock, Shield, EyeOff, UserX, Key, ChevronRight } from "lucide-react-native";
 import MainContainer from "../../Common/MainContainer";
-import { Colors } from "../../Assets/StyleUtilities/Colors";
+import { useTheme } from "../../Theme/ThemeContext";
 import { Typography } from "../../Theme/Typographys";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 
 export default function PrivacySecurity() {
+    const { Colors } = useTheme();
+    const styles = getStyles(Colors);
     const navigation = useNavigation();
 
     const [settings, setSettings] = useState({
@@ -107,10 +109,9 @@ export default function PrivacySecurity() {
     );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (Colors: any) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7F8F9',
     },
     scrollContent: {
         paddingTop: ResponsivePixels.size24,

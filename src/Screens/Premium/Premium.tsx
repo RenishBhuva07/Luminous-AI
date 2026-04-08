@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-nati
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Crown, CheckCircle2 } from "lucide-react-native";
 import MainContainer from "../../Common/MainContainer";
-import { Colors } from "../../Assets/StyleUtilities/Colors";
+import { useTheme } from "../../Theme/ThemeContext";
 import { Typography } from "../../Theme/Typographys";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 
 export default function Premium() {
+    const { Colors } = useTheme();
+    const styles = getStyles(Colors);
     const navigation = useNavigation();
 
     const features = [
@@ -53,14 +55,13 @@ export default function Premium() {
     );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (Colors: any) => StyleSheet.create({
     container: {
         flexGrow: 1,
         alignItems: "center",
         paddingHorizontal: ResponsivePixels.size24,
         paddingTop: ResponsivePixels.size40,
         paddingBottom: ResponsivePixels.size40,
-        backgroundColor: '#F7F8F9',
     },
     iconContainer: {
         width: ResponsivePixels.size120,

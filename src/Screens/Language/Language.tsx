@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Check } from "lucide-react-native";
 import MainContainer from "../../Common/MainContainer";
-import { Colors } from "../../Assets/StyleUtilities/Colors";
+import { useTheme } from "../../Theme/ThemeContext";
 import { Typography } from "../../Theme/Typographys";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 
 export default function Language() {
+    const { Colors } = useTheme();
+    const styles = getStyles(Colors);
     const navigation = useNavigation();
 
     const [selectedLanguage, setSelectedLanguage] = useState("English (US)");
@@ -86,10 +88,9 @@ export default function Language() {
     );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (Colors: any) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7F8F9',
     },
     scrollContent: {
         paddingTop: ResponsivePixels.size24,

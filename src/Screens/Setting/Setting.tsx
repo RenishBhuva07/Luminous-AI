@@ -7,10 +7,11 @@ import { Colors } from "../../Assets/StyleUtilities/Colors";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 import { Typography } from "../../Theme/Typographys";
 import { IMAGES } from "../../Assets/Images";
+import { useTheme } from '../../Theme/ThemeContext';
 
 export default function Setting() {
+    const { Colors, isDarkMode, toggleTheme } = useTheme();
     const navigation = useNavigation<any>();
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
 
     const handleLogout = () => {
@@ -45,7 +46,7 @@ export default function Setting() {
                     <IconComponent color={Colors.DefaultWhite} size={20} />
                 </View>
                 <Text style={styles.menuTitle}>{title}</Text>
-                
+
                 <View style={styles.rightContainer}>
                     {rightElement}
                     <ChevronRight color={Colors.MutedSteelText} size={20} />
@@ -69,7 +70,7 @@ export default function Setting() {
                     <IconComponent color={Colors.DefaultWhite} size={20} />
                 </View>
                 <Text style={styles.menuTitle}>{title}</Text>
-                
+
                 <View style={styles.rightContainer}>
                     <Switch
                         value={value}
@@ -84,9 +85,9 @@ export default function Setting() {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: Colors.LightWhite }]}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                
+
                 {renderHeader()}
 
                 {/* Group 1 */}
@@ -101,8 +102,8 @@ export default function Setting() {
                     {renderMenuItem('Notification', Bell, '#FF5B65', null, true, () => navigation.navigate('Notifications'))}
                     {renderMenuItem('Privacy and Security', Lock, '#A3A8B1', null, true, () => navigation.navigate('PrivacySecurity'))}
                     {renderMenuItem(
-                        'Language', 
-                        Globe, 
+                        'Language',
+                        Globe,
                         '#9E57E5',
                         <View style={styles.languageBadge}>
                             <Text style={styles.languageBadgeText}>English</Text>
@@ -110,7 +111,7 @@ export default function Setting() {
                         true,
                         () => navigation.navigate('Language')
                     )}
-                    {renderToggleItem('Appearance', Moon, '#21AF85', isDarkMode, setIsDarkMode, false)}
+                    {renderToggleItem('Appearance', Moon, '#21AF85', isDarkMode, toggleTheme, false)}
                 </View>
 
                 {/* Group 3 */}
@@ -137,14 +138,14 @@ export default function Setting() {
                         <Text style={styles.modalTitle}>Log Out</Text>
                         <Text style={styles.modalText}>Are you sure you want to log out?</Text>
                         <View style={styles.modalActions}>
-                            <TouchableOpacity 
-                                style={[styles.modalButton, styles.cancelButton]} 
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.cancelButton]}
                                 onPress={() => setIsLogoutModalVisible(false)}
                             >
                                 <Text style={styles.cancelButtonText}>Cancel</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity 
-                                style={[styles.modalButton, styles.logoutButton]} 
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.logoutButton]}
                                 onPress={handleLogout}
                             >
                                 <Text style={styles.logoutButtonText}>Log Out</Text>
@@ -160,7 +161,7 @@ export default function Setting() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7F8F9', // Light gray background for contrast against white cards
+        // will be dynamically styled
     },
     scrollContent: {
         paddingTop: ResponsivePixels.size60,

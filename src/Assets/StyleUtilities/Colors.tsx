@@ -30,5 +30,11 @@ export const Colors = {
     FogGrey: "#D9D9D9",
 
     // Rare
-    CarbonSlate: "#2C3035"
+    CarbonSlate: "#2C3035",
+
+    // Missing colors from other components
+    SteelMist: "#A3A8B1",
+    NoirBlack: "#111111",
+    SunburstFlame: "#FF5B65",
+    MoonDust: "#F0F0F0",
 };

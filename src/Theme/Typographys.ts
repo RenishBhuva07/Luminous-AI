@@ -11,74 +11,84 @@ export const Typography = {
     h1RanadeBold: {
         fontFamily: Fonts.ranade.bold,
         fontSize: 26,
-        lineHeight: 32,
+        lineHeight: 33,
     },
 
     // Body Large  ·  16
     bodyLargeRanadeRegular: {
         fontFamily: Fonts.ranade.regular,
         fontSize: 16,
-        lineHeight: 16,
+        lineHeight: 24,
     },
 
     // Body Medium  ·  14
     bodyMediumRanadeBold: {
         fontFamily: Fonts.ranade.bold,
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 20,
     },
     bodyMediumRanadeMedium: {
         fontFamily: Fonts.ranade.medium,
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 20,
     },
     bodyMediumRanadeRegular: {
         fontFamily: Fonts.ranade.regular,
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 20,
     },
 
     // Body Small  ·  10
     bodySmallRanadeBold: {
         fontFamily: Fonts.ranade.bold,
         fontSize: 10,
-        lineHeight: 10,
+        lineHeight: 16,
     },
 
     // Display  ·  20  (between H1 and Body Large — no standard bucket)
     displayRanadeBold: {
         fontFamily: Fonts.ranade.bold,
         fontSize: 20,
-        lineHeight: 20,
+        lineHeight: 25,
     },
 
 
     // ─────────────────────────────────────────────────────────────────────────
     // 🔶 POPPINS
-    // ─────────────────────────────────────────────────────────────────────────
+    // H5 · 20
+    h5SemiBold: {
+        fontFamily: Fonts.poppins.semiBold,
+        fontSize: 20,
+        lineHeight: 25,
+    },
 
     // H6  ·  18
     h6PoppinsSemiBold: {
         fontFamily: Fonts.poppins.semiBold,
         fontSize: 18,
-        lineHeight: 18,
+        lineHeight: 23,
+    },
+    h6Bold: {
+        fontFamily: Fonts.poppins.bold,
+        fontSize: 18,
+        lineHeight: 23,
     },
 
     // Body Large  ·  16
     bodyLargePoppinsSemiBold: {
         fontFamily: Fonts.poppins.semiBold,
         fontSize: 16,
-        lineHeight: 16,
+        lineHeight: 24,
     },
     bodyLargePoppinsMedium: {
         fontFamily: Fonts.poppins.medium,
         fontSize: 16,
-        lineHeight: 16,
+        lineHeight: 24,
     },
     bodyLargePoppinsRegular: {
         fontFamily: Fonts.poppins.regular,
         fontSize: 16,
-        lineHeight: 16,
+        lineHeight: 24,
     },
     bodyLargePoppinsRegularLoose: {
         fontFamily: Fonts.poppins.regular,
@@ -90,12 +100,22 @@ export const Typography = {
     bodyMediumPoppinsSemiBold: {
         fontFamily: Fonts.poppins.semiBold,
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 20,
+    },
+    bodyMediumSemiBold: {
+        fontFamily: Fonts.poppins.semiBold,
+        fontSize: 14,
+        lineHeight: 20,
     },
     bodyMediumPoppinsMedium: {
         fontFamily: Fonts.poppins.medium,
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 20,
+    },
+    bodyMediumMedium: {
+        fontFamily: Fonts.poppins.medium,
+        fontSize: 14,
+        lineHeight: 20,
     },
     bodyMediumPoppinsMediumLoose: {
         fontFamily: Fonts.poppins.medium,
@@ -105,7 +125,7 @@ export const Typography = {
     bodyMediumPoppinsRegular: {
         fontFamily: Fonts.poppins.regular,
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 20,
     },
 
     // Body Small  ·  13
@@ -119,12 +139,12 @@ export const Typography = {
     bodySmallPoppinsSemiBold: {
         fontFamily: Fonts.poppins.semiBold,
         fontSize: 12,
-        lineHeight: 12,
+        lineHeight: 18,
     },
     bodySmallPoppinsRegular: {
         fontFamily: Fonts.poppins.regular,
         fontSize: 12,
-        lineHeight: 12,
+        lineHeight: 18,
     },
     bodySmallPoppinsRegularLoose: {
         fontFamily: Fonts.poppins.regular,
@@ -145,12 +165,7 @@ export const Typography = {
     },
 };
 
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Shadow
-// ─────────────────────────────────────────────────────────────────────────────
-
-import { Platform } from "react-native";
+import { Platform } from 'react-native';
 import { Colors } from "../Assets/StyleUtilities/Colors";
 
 export const ShadowStyles = {

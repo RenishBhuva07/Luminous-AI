@@ -1,8 +1,9 @@
 import React from 'react';
 import { ColorValue, Keyboard, KeyboardAvoidingView, Platform, StatusBar, StatusBarStyle, TouchableWithoutFeedback, View } from 'react-native';
-import { Colors } from '../Assets/StyleUtilities/Colors';
+import { Colors as StaticColors } from '../Assets/StyleUtilities/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomHeader from '../Common/CustomHeader';
+import { useTheme } from '../Theme/ThemeContext';
 
 interface HeaderOption {
     icon?: any;
@@ -32,6 +33,7 @@ interface IMainContainerProps {
 }
 
 const MainContainer = (props: IMainContainerProps) => {
+    const { Colors } = useTheme();
 
     const {
         children,
