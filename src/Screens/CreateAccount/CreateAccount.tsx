@@ -38,7 +38,7 @@ const CreateAccount: React.FC = () => {
             >
                 <Text style={styles.title}>Create your account</Text>
                 <Text style={styles.subtitle}>
-                    To begin using the chat GPT, please create an account with your email address.
+                    To begin using the Luminous, please create an account with your email address.
                 </Text>
 
                 <View style={styles.formContainer}>
@@ -78,14 +78,14 @@ const CreateAccount: React.FC = () => {
                         {agreed && <Check color={Colors.DefaultWhite} size={14} strokeWidth={3} />}
                     </TouchableOpacity>
                     <Text style={styles.checkboxText}>
-                        By continuing you agree to the chat GPT{' '}
+                        By continuing you agree to the Luminous{' '}
                         <Text style={styles.linkTextGreen}>Term of Service</Text> and{' '}
                         <Text style={styles.linkTextGreen}>Privacy Policy</Text>
                     </Text>
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <CustomButton title="Continue" onPress={() => {}} />
+                    <CustomButton title="Continue" onPress={() => { }} />
                 </View>
 
                 <View style={styles.loginLinkContainer}>
@@ -104,20 +104,20 @@ const CreateAccount: React.FC = () => {
                 <View style={styles.socialButtonsContainer}>
                     <CustomButton
                         title="Continue with Google"
-                        onPress={() => {}}
+                        onPress={() => { }}
                         variant="google"
                         style={styles.socialButton}
                         buttonTextStyle={styles.socialButtonTextBlack}
                     />
                     <CustomButton
                         title="Continue with Facebook"
-                        onPress={() => {}}
+                        onPress={() => { }}
                         variant="facebook"
                         style={styles.socialButton}
                     />
                     <CustomButton
                         title="Continue with Apple"
-                        onPress={() => {}}
+                        onPress={() => { }}
                         variant="apple"
                         style={styles.socialButton}
                     />

@@ -39,4 +39,5 @@ export const Colors = {
     MoonDust: "#F0F0F0",
 
     PrimaryBlue: "#165DFF",
+    SecondaryPurple: "#826EEA"
 };

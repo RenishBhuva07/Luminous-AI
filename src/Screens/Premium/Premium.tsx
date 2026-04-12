@@ -39,9 +39,9 @@ export default function Premium() {
                 <Text style={styles.subtitle}>Supercharge your experience with our advanced AI capabilities.</Text>
 
                 <View style={styles.featuresCard}>
-                    {features.map((feature, index) => (
+                    {features?.map((feature, index) => (
                         <View key={index} style={styles.featureItem}>
-                            <CheckCircle2 color={'#826EEA'} size={24} />
+                            <CheckCircle2 color={Colors.LuminousGreen} size={24} />
                             <Text style={styles.featureText}>{feature}</Text>
                         </View>
                     ))}
@@ -60,18 +60,18 @@ const getStyles = (Colors: any) => StyleSheet.create({
         flexGrow: 1,
         alignItems: "center",
         paddingHorizontal: ResponsivePixels.size24,
-        paddingTop: ResponsivePixels.size40,
+        paddingTop: ResponsivePixels.size20,
         paddingBottom: ResponsivePixels.size40,
     },
     iconContainer: {
         width: ResponsivePixels.size120,
         height: ResponsivePixels.size120,
         borderRadius: ResponsivePixels.size60,
-        backgroundColor: '#826EEA',
+        backgroundColor: Colors.LuminousGreen,
         justifyContent: "center",
         alignItems: "center",
         marginBottom: ResponsivePixels.size24,
-        shadowColor: '#826EEA',
+        shadowColor: Colors.SecondaryPurple,
         shadowOffset: { width: 0, height: 10 },
         shadowOpacity: 0.3,
         shadowRadius: 15,
@@ -116,11 +116,11 @@ const getStyles = (Colors: any) => StyleSheet.create({
     },
     subscribeButton: {
         width: '100%',
-        backgroundColor: '#826EEA',
+        backgroundColor: Colors.LuminousGreen,
         paddingVertical: ResponsivePixels.size16,
         borderRadius: ResponsivePixels.size16,
         alignItems: 'center',
-        shadowColor: '#826EEA',
+        shadowColor: Colors.SecondaryPurple,
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.4,
         shadowRadius: 10,

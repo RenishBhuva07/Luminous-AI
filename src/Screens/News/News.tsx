@@ -9,12 +9,12 @@ const SLIDER_CARD_WIDTH = W * 0.8;
 const SLIDER_SPACING = ResponsivePixels.size16;
 
 const BREAKING_NEWS = [
-    { id: '1', title: 'Chat GPT: Banned in schools and colleges, why Elon Musk terms it the...', image: 'https://images.unsplash.com/photo-1620712948343-0008ce8a285b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: '1', title: 'Luminous: Banned in schools and colleges, why Elon Musk terms it the...', image: 'https://images.unsplash.com/photo-1620712948343-0008ce8a285b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: '2', title: 'Technology leaps forward with new AI advancements in 2024', image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: '3', title: 'Global markets hit record highs amidst tech rally', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
 ];
 
-const CATEGORIES = ['All News', 'Chat GPT', 'Sport', 'Politics', 'Tech'];
+const CATEGORIES = ['All News', 'Luminous', 'Sport', 'Politics', 'Tech'];
 
 const NEWS_FEED = [
     {

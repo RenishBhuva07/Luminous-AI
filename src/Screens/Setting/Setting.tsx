@@ -21,7 +21,7 @@ export default function Setting() {
 
     const renderHeader = () => (
         <View style={styles.headerContainer}>
-            <TouchableOpacity style={styles.editButton}>
+            <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('Profile')}>
                 <Text style={styles.editText}>Edit</Text>
             </TouchableOpacity>
             <View style={styles.profileSection}>
@@ -92,8 +92,8 @@ export default function Setting() {
 
                 {/* Group 1 */}
                 <View style={styles.cardGroup}>
-                    {renderMenuItem('Save Messages', Bookmark, '#4A8BFF')}
-                    {renderMenuItem('Archive Chat', Archive, '#FF5B65')}
+                    {renderMenuItem('Save Messages', Bookmark, '#4A8BFF', null, true, () => navigation.navigate('SaveMessages'))}
+                    {renderMenuItem('Archive Chat', Archive, '#FF5B65', null, true, () => navigation.navigate('ArchiveChat'))}
                     {renderMenuItem('Devices', Smartphone, '#42CBE9', null, false)}
                 </View>
 

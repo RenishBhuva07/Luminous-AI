@@ -36,7 +36,7 @@ const Login: React.FC = () => {
                 keyboardShouldPersistTaps="handled"
             >
                 <Text style={styles.title}>Log In</Text>
-                <Text style={styles.subtitle}>Welcome back to chat GPT 👋</Text>
+                <Text style={styles.subtitle}>Welcome back to Luminous 👋</Text>
 
                 <View style={styles.formContainer}>
                     <FloatingTextInput

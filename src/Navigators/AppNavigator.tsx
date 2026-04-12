@@ -10,6 +10,9 @@ import Notifications from "../Screens/Notifications/Notifications";
 import PrivacySecurity from "../Screens/PrivacySecurity/PrivacySecurity";
 import Language from "../Screens/Language/Language";
 import Premium from "../Screens/Premium/Premium";
+import Profile from "../Screens/Profile/Profile";
+import SaveMessages from "../Screens/SaveMessages/SaveMessages";
+import ArchiveChat from "../Screens/ArchiveChat/ArchiveChat";
 
 const Stack = createNativeStackNavigator()
 
@@ -27,6 +30,9 @@ export default function AppNavigator() {
                 <Stack.Screen name="PrivacySecurity" component={PrivacySecurity} />
                 <Stack.Screen name="Language" component={Language} />
                 <Stack.Screen name="Premium" component={Premium} />
+                <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="SaveMessages" component={SaveMessages} />
+                <Stack.Screen name="ArchiveChat" component={ArchiveChat} />
             </Stack.Navigator>
         </NavigationContainer>
     )
