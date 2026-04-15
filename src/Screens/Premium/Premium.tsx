@@ -14,7 +14,7 @@ export default function Premium() {
 
     const features = [
         "Unlimited messages and interactions",
-        "Access to advanced AI models (GPT-4.0)",
+        "Access to advanced AI models (Luminous Pro)",
         "Priority customer support",
         "Exclusive premium badges and themes"
     ];

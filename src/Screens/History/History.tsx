@@ -9,16 +9,16 @@ const CHAT_HISTORY = [
     {
         title: "Today",
         data: [
-            { id: '1', title: 'How do you say "where is the bus stop" in spanish?', desc: 'With these 100+ ChatGPT prompts for Crypto\nTrading!' },
+            { id: '1', title: 'How do you say "where is the bus stop" in spanish?', desc: 'With these 100+ Luminous prompts for Crypto\nTrading!' },
             { id: '2', title: 'What are some other orange-coloured foods?', desc: "I'm not sure what the funniest joke is, but I can try\nto generate one for you. Here it is:..." },
-            { id: '3', title: 'How do you say "where is the bus stop" in spanish?', desc: 'With these 100+ ChatGPT prompts for Crypto\nTrading!' },
+            { id: '3', title: 'How do you say "where is the bus stop" in spanish?', desc: 'With these 100+ Luminous prompts for Crypto\nTrading!' },
         ]
     },
     {
         title: "Yesterday",
         data: [
             { id: '4', title: "I didn't find that joke very funny. Do you\nhave any other jokes?", desc: "I'm sorry that you didn't find that joke funny. Here's\nanother one:..." },
-            { id: '5', title: "Can you generate a poem for me?", desc: "With these 100+ ChatGPT prompts for Crypto\nTrading!" },
+            { id: '5', title: "Can you generate a poem for me?", desc: "With these 100+ Luminous prompts for Crypto\nTrading!" },
         ]
     }
 ];

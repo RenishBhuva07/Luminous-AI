@@ -14,10 +14,10 @@ const POPULAR_PROMPTS = [
 ];
 
 const RECENT_CHATS = [
-    { id: '1', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
-    { id: '2', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
-    { id: '3', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
-    { id: '4', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\nChatGPT prompts\nfor Crypto Trading!' },
+    { id: '1', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\Luminous prompts\nfor Crypto Trading!' },
+    { id: '2', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\Luminous prompts\nfor Crypto Trading!' },
+    { id: '3', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\Luminous prompts\nfor Crypto Trading!' },
+    { id: '4', title: 'How do you say\n"where is the bus\nstop" in spanish?', desc: 'With these 100+\Luminous prompts\nfor Crypto Trading!' },
 ];
 
 export default function Home() {
@@ -52,11 +52,11 @@ export default function Home() {
                     </TouchableOpacity>
                 </View>
 
-                {/* ChatGPT Plus Banner */}
+                {/* Luminous Plus Banner */}
                 <View style={styles.bannerContainer}>
                     <View style={styles.bannerContent}>
                         <View style={styles.bannerHeader}>
-                            <Text style={styles.bannerTitle}>ChatGPT Plus</Text>
+                            <Text style={styles.bannerTitle}>Luminous Pro</Text>
                             <View style={styles.comingSoonBadge}>
                                 <Text style={styles.comingSoonText}>Coming Soon</Text>
                             </View>
@@ -65,7 +65,7 @@ export default function Home() {
                         <View style={styles.bulletList}>
                             <View style={styles.bulletItem}>
                                 <CheckCircle2 size={16} color={Colors.DefaultWhite} />
-                                <Text style={styles.bulletText}>Access to GPT-4, our most{'\n'}capable model</Text>
+                                <Text style={styles.bulletText}>Access to Luminous Plus, our most{'\n'}capable model</Text>
                             </View>
                             <View style={styles.bulletItem}>
                                 <CheckCircle2 size={16} color={Colors.DefaultWhite} />
