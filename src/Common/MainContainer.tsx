@@ -15,6 +15,7 @@ interface CustomHeaderProps {
     headerTitle?: string
     headerTitleColor?: string
     headerBackgroundColor?: string
+    headerTitleNumberOfLines?: number
     headerLeft?: HeaderOption
     headerRight?: HeaderOption
 }

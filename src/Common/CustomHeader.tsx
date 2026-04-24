@@ -16,6 +16,7 @@ interface CustomHeaderProps {
     headerTitle?: string;
     headerTitleColor?: string;
     headerBackgroundColor?: string;
+    headerTitleNumberOfLines?: number;
     headerLeft?: HeaderOption;
     headerRight?: HeaderOption;
     showHeader?: boolean;
@@ -25,6 +26,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
     headerTitle = "Header Title",
     headerTitleColor = Colors.MidnightInkText,
     headerBackgroundColor,
+    headerTitleNumberOfLines = 2,
     headerLeft,
     headerRight,
     showHeader = false
@@ -85,7 +87,11 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
                     </View>
 
                     <View style={styles.centerSection}>
-                        <Text style={[styles.titleText, { color: headerTitleColor }]}>
+                        <Text
+                            style={[styles.titleText, { color: headerTitleColor }]}
+                            numberOfLines={headerTitleNumberOfLines}
+                            ellipsizeMode="tail"
+                        >
                             {headerTitle}
                         </Text>
                     </View>

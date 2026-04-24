@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Switch, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ArrowLeft, Lock, Shield, EyeOff, UserX, Key, ChevronRight } from "lucide-react-native";
+import { ArrowLeft, Lock, Shield, EyeOff, Key, ChevronRight } from "lucide-react-native";
 import MainContainer from "../../Common/MainContainer";
 import { useTheme } from "../../Theme/ThemeContext";
 import { Typography } from "../../Theme/Typographys";
@@ -77,6 +77,7 @@ export default function PrivacySecurity() {
             showHeader={true}
             header={{
                 headerTitle: "Privacy and Security",
+                headerTitleNumberOfLines: 1,
                 headerLeft: {
                     customIcon: <ArrowLeft color={Colors.MidnightInkText} size={24} />,
                     onPress: () => navigation.goBack()
@@ -98,8 +99,7 @@ export default function PrivacySecurity() {
                     <View style={styles.sectionContainer}>
                         <Text style={styles.sectionTitle}>Privacy</Text>
                         <View style={styles.cardGroup}>
-                            {renderToggleItem('Read Receipts', EyeOff, '#FF5B65', settings.readReceipts, () => toggleSetting('readReceipts'))}
-                            {renderMenuItem('Blocked Contacts', UserX, '#A3A8B1', false)}
+                            {renderToggleItem('Read Receipts', EyeOff, '#FF5B65', settings.readReceipts, () => toggleSetting('readReceipts'), false)}
                         </View>
                     </View>
 
@@ -116,7 +116,6 @@ const getStyles = (Colors: any) => StyleSheet.create({
     scrollContent: {
         paddingTop: ResponsivePixels.size24,
         paddingBottom: ResponsivePixels.size60,
-        paddingHorizontal: ResponsivePixels.size20,
     },
     sectionContainer: {
         marginBottom: ResponsivePixels.size24,
@@ -125,7 +124,7 @@ const getStyles = (Colors: any) => StyleSheet.create({
         ...Typography.bodyLargePoppinsSemiBold,
         color: Colors.MidnightInkText,
         marginBottom: ResponsivePixels.size12,
-        marginLeft: ResponsivePixels.size8,
+        marginHorizontal: ResponsivePixels.size12,
     },
     cardGroup: {
         backgroundColor: Colors.DefaultWhite,
@@ -141,7 +140,7 @@ const getStyles = (Colors: any) => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: ResponsivePixels.size16,
-        paddingHorizontal: ResponsivePixels.size16,
+        paddingHorizontal: ResponsivePixels.size12,
     },
     iconContainer: {
         width: ResponsivePixels.size40,

@@ -4,6 +4,7 @@ import AppNavigator from "./src/Navigators/AppNavigator";
 
 import { ThemeProvider } from "./src/Theme/ThemeContext";
 import { useEffect } from "react";
+import { PremiumProvider } from "./src/Context/PremiumContext";
 
 function App() {
 
@@ -13,14 +14,16 @@ function App() {
 
     return (
         <ThemeProvider>
-            <SafeAreaProvider>
-                <StatusBar
-                    barStyle="light-content"
-                    translucent
-                    backgroundColor="transparent"
-                />
-                <AppNavigator />
-            </SafeAreaProvider>
+            <PremiumProvider>
+                <SafeAreaProvider>
+                    <StatusBar
+                        barStyle="light-content"
+                        translucent
+                        backgroundColor="transparent"
+                    />
+                    <AppNavigator />
+                </SafeAreaProvider>
+            </PremiumProvider>
         </ThemeProvider>
     );
 }

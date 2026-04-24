@@ -1,16 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft, Crown, CheckCircle2 } from "lucide-react-native";
 import MainContainer from "../../Common/MainContainer";
 import { useTheme } from "../../Theme/ThemeContext";
 import { Typography } from "../../Theme/Typographys";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
+import { usePremium } from "../../Context/PremiumContext";
 
 export default function Premium() {
     const { Colors } = useTheme();
     const styles = getStyles(Colors);
     const navigation = useNavigation();
+    const { isPremium } = usePremium();
 
     const features = [
         "Unlimited messages and interactions",
@@ -18,6 +20,14 @@ export default function Premium() {
         "Priority customer support",
         "Exclusive premium badges and themes"
     ];
+
+    const renderFeatureItem = ({ item }: { item: string }) => (
+        <View style={styles.featureItem}>
+            <CheckCircle2 color={Colors.LuminousGreen} size={24} />
+            <Text style={styles.featureText}>{item}</Text>
+        </View>
+    );
+
 
     return (
         <MainContainer
@@ -31,26 +41,38 @@ export default function Premium() {
             }}
         >
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
-                <View style={styles.iconContainer}>
-                    <Crown color={Colors.DefaultWhite} size={64} />
+                <View style={styles.content}>
+                    <View style={styles.iconContainer}>
+                        <Crown color={Colors.DefaultWhite} size={64} />
+                    </View>
+
+                    <Text style={styles.title}>Luminous Premium</Text>
+                    <Text style={styles.subtitle}>Supercharge your experience with our advanced AI capabilities.</Text>
+
+                    <View style={styles.featuresCard}>
+                        <FlatList
+                            data={features}
+                            renderItem={renderFeatureItem}
+                            keyExtractor={(item) => item}
+                            scrollEnabled={false}
+                            ItemSeparatorComponent={() => <View style={styles.featureSeparator} />}
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </View>
                 </View>
 
-                <Text style={styles.title}>Luminous Premium</Text>
-                <Text style={styles.subtitle}>Supercharge your experience with our advanced AI capabilities.</Text>
-
-                <View style={styles.featuresCard}>
-                    {features?.map((feature, index) => (
-                        <View key={index} style={styles.featureItem}>
-                            <CheckCircle2 color={Colors.LuminousGreen} size={24} />
-                            <Text style={styles.featureText}>{feature}</Text>
-                        </View>
-                    ))}
-                </View>
-
-                <TouchableOpacity style={styles.subscribeButton} activeOpacity={0.8}>
-                    <Text style={styles.subscribeText}>Subscribe Now - $9.99/mo</Text>
+                <TouchableOpacity
+                    style={[styles.subscribeButton, isPremium && styles.subscribedButton]}
+                    activeOpacity={0.8}
+                    onPress={() => !isPremium && navigation.navigate("Payment" as never)}
+                >
+                    <Text style={styles.subscribeText}>
+                        {isPremium ? "Payment Done - You are Premium" : "Subscribe Now - $9.99/mo"}
+                    </Text>
                 </TouchableOpacity>
             </ScrollView>
+
+
         </MainContainer>
     );
 }
@@ -58,10 +80,14 @@ export default function Premium() {
 const getStyles = (Colors: any) => StyleSheet.create({
     container: {
         flexGrow: 1,
-        alignItems: "center",
-        paddingHorizontal: ResponsivePixels.size24,
+        justifyContent: "space-between",
+        paddingHorizontal: ResponsivePixels.size12,
         paddingTop: ResponsivePixels.size20,
         paddingBottom: ResponsivePixels.size40,
+    },
+    content: {
+        width: "100%",
+        alignItems: "center",
     },
     iconContainer: {
         width: ResponsivePixels.size120,
@@ -88,7 +114,6 @@ const getStyles = (Colors: any) => StyleSheet.create({
         ...Typography.bodyLargePoppinsRegular,
         color: Colors.MutedSteelText,
         textAlign: "center",
-        marginBottom: ResponsivePixels.size40,
         lineHeight: 24,
     },
     featuresCard: {
@@ -96,17 +121,22 @@ const getStyles = (Colors: any) => StyleSheet.create({
         backgroundColor: Colors.DefaultWhite,
         borderRadius: ResponsivePixels.size20,
         padding: ResponsivePixels.size24,
-        marginBottom: ResponsivePixels.size40,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 10,
-        elevation: 2,
+        marginVertical: ResponsivePixels.size40,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.9)",
+        shadowColor: "#111827",
+        shadowOffset: { width: 0, height: 12 },
+        shadowOpacity: 0.18,
+        shadowRadius: 20,
+        elevation: 10,
+        transform: [{ perspective: 900 }, { rotateX: "3deg" }],
     },
     featureItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: ResponsivePixels.size16,
+    },
+    featureSeparator: {
+        height: ResponsivePixels.size16,
     },
     featureText: {
         ...Typography.bodyMediumPoppinsRegular,
@@ -129,5 +159,8 @@ const getStyles = (Colors: any) => StyleSheet.create({
     subscribeText: {
         ...Typography.bodyLargePoppinsSemiBold,
         color: Colors.DefaultWhite,
-    }
+    },
+    subscribedButton: {
+        opacity: 0.9,
+    },
 });

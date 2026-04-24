@@ -95,7 +95,6 @@ const getStyles = (Colors: any) => StyleSheet.create({
     scrollContent: {
         paddingTop: ResponsivePixels.size24,
         paddingBottom: ResponsivePixels.size60,
-        paddingHorizontal: ResponsivePixels.size20,
     },
     sectionContainer: {
         marginBottom: ResponsivePixels.size24,
@@ -104,7 +103,7 @@ const getStyles = (Colors: any) => StyleSheet.create({
         ...Typography.bodyLargePoppinsSemiBold,
         color: Colors.MidnightInkText,
         marginBottom: ResponsivePixels.size12,
-        marginLeft: ResponsivePixels.size8,
+        marginHorizontal: ResponsivePixels.size12,
     },
     cardGroup: {
         backgroundColor: Colors.DefaultWhite,

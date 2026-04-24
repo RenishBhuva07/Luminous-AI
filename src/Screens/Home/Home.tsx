@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TextInput, ScrollView, TouchableOpacity, FlatList } from "react-native";
-import { Search, LayoutGrid, SlidersHorizontal, Bitcoin, BarChart2, BookOpen, MoreHorizontal, CheckCircle2 } from "lucide-react-native";
+import { Search, SlidersHorizontal, Bitcoin, BarChart2, BookOpen, MoreHorizontal, CheckCircle2 } from "lucide-react-native";
 import { Colors } from "../../Assets/StyleUtilities/Colors";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 import { Typography } from "../../Theme/Typographys";
 import { IMAGES } from "../../Assets/Images";
+import { usePremium } from "../../Context/PremiumContext";
+import PremiumBadge from "../../Common/PremiumBadge";
 
 const POPULAR_PROMPTS = [
     { id: '1', title: 'Crypto', icon: <Bitcoin size={20} color={Colors.MidnightInkText} /> },
@@ -21,6 +23,8 @@ const RECENT_CHATS = [
 ];
 
 export default function Home() {
+    const { isPremium } = usePremium();
+
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
@@ -31,12 +35,14 @@ export default function Home() {
                         <Image source={IMAGES.Luminous_Face} style={styles.profilePic} />
                         <View style={styles.userInfo}>
                             <Text style={styles.greetingText}>Good Morning 👋</Text>
-                            <Text style={styles.userNameText}>Zachery Williamson</Text>
+                            <Text style={styles.userNameText}>Renish Patel</Text>
                         </View>
                     </View>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <LayoutGrid color={Colors.MidnightInkText} size={28} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    {/* Menu icon hidden for now as requested */}
+                    {isPremium && <PremiumBadge />}
                 </View>
 
                 {/* Search Bar */}
@@ -191,7 +197,7 @@ const styles = StyleSheet.create({
         color: Colors.MidnightInkText,
     },
     bannerContainer: {
-        backgroundColor: '#2A4A43', // Dark greenish custom color
+        backgroundColor: '#2A4A43',
         borderRadius: ResponsivePixels.size20,
         marginHorizontal: ResponsivePixels.size12,
         padding: ResponsivePixels.size20,
@@ -216,7 +222,7 @@ const styles = StyleSheet.create({
         color: Colors.LuminousGreen,
     },
     comingSoonBadge: {
-        backgroundColor: '#FF6B6B', // Reddish custom color
+        backgroundColor: '#FF6B6B',
         paddingHorizontal: ResponsivePixels.size10,
         paddingVertical: ResponsivePixels.size4,
         borderRadius: ResponsivePixels.size12,

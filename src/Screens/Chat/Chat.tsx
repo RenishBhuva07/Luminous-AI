@@ -8,6 +8,8 @@ import { Colors } from "../../Assets/StyleUtilities/Colors";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 import { Typography } from "../../Theme/Typographys";
 import { IMAGES } from "../../Assets/Images";
+import { usePremium } from "../../Context/PremiumContext";
+import PremiumBadge from "../../Common/PremiumBadge";
 
 
 type Message = {
@@ -24,6 +26,7 @@ const SUGGESTIONS = [
 ];
 
 export default function Chat() {
+    const { isPremium } = usePremium();
     const [messages, setMessages] = useState<Message[]>([]);
     const [isBotTyping, setIsBotTyping] = useState(false);
     const [inputText, setInputText] = useState('');
@@ -154,9 +157,10 @@ export default function Chat() {
                     <Image source={IMAGES.Luminous_Face} style={styles.underlyingPic} />
                     <View>
                         <Text style={styles.underlyingGreeting}>Good Morning 👋</Text>
-                        <Text style={styles.underlyingName}>Zachery Williamson</Text>
+                        <Text style={styles.underlyingName}>Renish Patel</Text>
                     </View>
                 </View>
+                {isPremium && <PremiumBadge />}
             </View>
 
             {/* Main Chat Sheet overlaid */}
@@ -228,11 +232,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.DefaultWhite,
-        paddingBottom: ResponsivePixels.size80, // for bottom tabs
+        paddingBottom: ResponsivePixels.size80,
     },
     underlyingHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
         paddingTop: ResponsivePixels.size60,
-        paddingHorizontal: ResponsivePixels.size20,
+        paddingHorizontal: ResponsivePixels.size12,
         paddingBottom: ResponsivePixels.size35,
         backgroundColor: Colors.DefaultWhite,
     },

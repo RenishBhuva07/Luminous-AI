@@ -12,8 +12,8 @@ import { useTheme } from '../../Theme/ThemeContext';
 
 const Profile: React.FC = () => {
     const { Colors } = useTheme();
-    const [name, setName] = useState('Zachery Williamson');
-    const [email, setEmail] = useState('zachery.williamson94@gmail.com');
+    const [name, setName] = useState('Renish Patel');
+    const [email, setEmail] = useState('renish.patel.07@gmail.com');
 
     const handleSave = () => {
         // TODO: Implement save logic
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     },
     cameraButton: {
         position: 'absolute',
-        bottom: 0,
-        right: '35%',
+        bottom: "-1%",
+        right: '30%',
         backgroundColor: Colors.LuminousGreen,
         width: ResponsivePixels.size40,
         height: ResponsivePixels.size40,

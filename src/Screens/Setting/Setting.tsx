@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Switch, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { resetNavigation } from "../../Navigators/Navigator";
-import { ChevronRight, Bookmark, Archive, Smartphone, Bell, Lock, Globe, Moon, Crown, LogOut } from "lucide-react-native";
+import { ChevronRight, Bookmark, Archive, Smartphone, Bell, Lock, Globe, Moon, Crown, LogOut, Pencil } from "lucide-react-native";
 import { Colors } from "../../Assets/StyleUtilities/Colors";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
 import { Typography } from "../../Theme/Typographys";
 import { IMAGES } from "../../Assets/Images";
 import { useTheme } from '../../Theme/ThemeContext';
+import { usePremium } from "../../Context/PremiumContext";
+import PremiumBadge from "../../Common/PremiumBadge";
 
 export default function Setting() {
     const { Colors, isDarkMode, toggleTheme } = useTheme();
+    const { isPremium } = usePremium();
     const navigation = useNavigation<any>();
     const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
 
@@ -21,13 +24,15 @@ export default function Setting() {
 
     const renderHeader = () => (
         <View style={styles.headerContainer}>
-            <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('Profile')}>
-                <Text style={styles.editText}>Edit</Text>
-            </TouchableOpacity>
             <View style={styles.profileSection}>
-                <Image source={IMAGES.Luminous_Face} style={styles.profilePic} />
-                <Text style={styles.userName}>Zachery Williamson</Text>
-                <Text style={styles.userEmail}>zachery.williamson94@gmail.com</Text>
+                <View style={styles.profilePicContainer}>
+                    <Image source={IMAGES.Luminous_Face} style={styles.profilePic} />
+                    <TouchableOpacity style={styles.editIconButton} onPress={() => navigation.navigate('Profile')}>
+                        <Pencil color={Colors.DefaultWhite} size={20} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={styles.userName}>Renish Patel</Text>
+                <Text style={styles.userEmail}>renish.patel.07@gmail.com</Text>
             </View>
         </View>
     );
@@ -89,12 +94,17 @@ export default function Setting() {
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 
                 {renderHeader()}
+                {isPremium && (
+                    <View style={styles.premiumBadgeContainer}>
+                        <PremiumBadge />
+                    </View>
+                )}
 
                 {/* Group 1 */}
                 <View style={styles.cardGroup}>
                     {renderMenuItem('Save Messages', Bookmark, '#4A8BFF', null, true, () => navigation.navigate('SaveMessages'))}
                     {renderMenuItem('Archive Chat', Archive, '#FF5B65', null, true, () => navigation.navigate('ArchiveChat'))}
-                    {renderMenuItem('Devices', Smartphone, '#42CBE9', null, false)}
+                    {renderMenuItem('Devices', Smartphone, '#42CBE9', null, false, () => navigation.navigate('Devices'))}
                 </View>
 
                 {/* Group 2 */}
@@ -161,37 +171,48 @@ export default function Setting() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // will be dynamically styled
     },
     scrollContent: {
         paddingTop: ResponsivePixels.size60,
-        paddingBottom: ResponsivePixels.size120, // Extra padding for the bottom tab
-        paddingHorizontal: ResponsivePixels.size20,
+        paddingBottom: ResponsivePixels.size120,
+        paddingHorizontal: ResponsivePixels.size12,
     },
     headerContainer: {
         alignItems: 'center',
-        marginBottom: ResponsivePixels.size32,
+        marginBottom: ResponsivePixels.size24,
     },
-    editButton: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        zIndex: 10,
-    },
-    editText: {
-        ...Typography.bodyLargePoppinsMedium,
-        color: '#4A8BFF', // Blue link color
+    premiumBadgeContainer: {
+        position: "absolute",
+        right: ResponsivePixels.size12,
+        top: ResponsivePixels.size70,
+        zIndex: 20,
     },
     profileSection: {
         alignItems: 'center',
-        marginTop: ResponsivePixels.size20,
+        marginTop: ResponsivePixels.size16,
+    },
+    profilePicContainer: {
+        position: 'relative',
+        marginBottom: ResponsivePixels.size16,
     },
     profilePic: {
         width: ResponsivePixels.size100,
         height: ResponsivePixels.size100,
         borderRadius: ResponsivePixels.size50,
         backgroundColor: Colors.IvoryMist,
-        marginBottom: ResponsivePixels.size16,
+    },
+    editIconButton: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        backgroundColor: Colors.LuminousGreen,
+        width: ResponsivePixels.size36,
+        height: ResponsivePixels.size36,
+        borderRadius: ResponsivePixels.size18,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 3,
+        borderColor: Colors.DefaultWhite,
     },
     userName: {
         ...Typography.h1RanadeBold,
@@ -212,7 +233,7 @@ const styles = StyleSheet.create({
     menuItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: ResponsivePixels.size16,
+        paddingVertical: ResponsivePixels.size12,
         paddingHorizontal: ResponsivePixels.size16,
     },
     iconContainer: {

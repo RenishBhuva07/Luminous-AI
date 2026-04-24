@@ -13,6 +13,9 @@ import Premium from "../Screens/Premium/Premium";
 import Profile from "../Screens/Profile/Profile";
 import SaveMessages from "../Screens/SaveMessages/SaveMessages";
 import ArchiveChat from "../Screens/ArchiveChat/ArchiveChat";
+import Devices from "../Screens/Devices/Devices";
+import Payment from "../Screens/Payment/Payment";
+import PaymentDone from "../Screens/PaymentDone/PaymentDone";
 
 const Stack = createNativeStackNavigator()
 
@@ -33,6 +36,9 @@ export default function AppNavigator() {
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="SaveMessages" component={SaveMessages} />
                 <Stack.Screen name="ArchiveChat" component={ArchiveChat} />
+                <Stack.Screen name="Devices" component={Devices} />
+                <Stack.Screen name="Payment" component={Payment} />
+                <Stack.Screen name="PaymentDone" component={PaymentDone} />
             </Stack.Navigator>
         </NavigationContainer>
     )

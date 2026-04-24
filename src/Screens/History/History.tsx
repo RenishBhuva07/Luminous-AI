@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     listContent: {
         paddingTop: ResponsivePixels.size60,
-        paddingHorizontal: ResponsivePixels.size20,
+        paddingHorizontal: ResponsivePixels.size12,
         paddingBottom: ResponsivePixels.size100, // For the bottom tab
     },
     headerContainer: {

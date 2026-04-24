@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import { Colors } from "../../Assets/StyleUtilities/Colors";
 import ResponsivePixels from "../../Assets/StyleUtilities/ResponsivePixels";
@@ -9,7 +9,7 @@ const SLIDER_CARD_WIDTH = W * 0.8;
 const SLIDER_SPACING = ResponsivePixels.size16;
 
 const BREAKING_NEWS = [
-    { id: '1', title: 'Luminous: Banned in schools and colleges, why Elon Musk terms it the...', image: 'https://images.unsplash.com/photo-1620712948343-0008ce8a285b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: '1', title: 'Luminous: Banned in schools and colleges, why Elon Musk terms it the...', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: '2', title: 'Technology leaps forward with new AI advancements in 2024', image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: '3', title: 'Global markets hit record highs amidst tech rally', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
 ];
@@ -40,17 +40,52 @@ const NEWS_FEED = [
 const SliderSeparator = () => <View style={{ width: SLIDER_SPACING }} />;
 
 export default function News() {
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const baseSliderLength = BREAKING_NEWS.length;
+    const initialMiddleIndex = Math.floor(baseSliderLength / 2);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(initialMiddleIndex);
     const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[0]);
+    const sliderRef = useRef<FlatList<(typeof BREAKING_NEWS)[number]>>(null);
+    const currentVirtualIndexRef = useRef(baseSliderLength + initialMiddleIndex);
+    const loopedBreakingNews = useMemo(
+        () => [...BREAKING_NEWS, ...BREAKING_NEWS, ...BREAKING_NEWS],
+        []
+    );
 
-    const handleScroll = (event: any) => {
+    const updateSlideIndex = useCallback((event: any) => {
         const offsetX = event.nativeEvent.contentOffset.x;
-        // Calculate the current index based on offset and item width + spacing
-        const index = Math.round(offsetX / (SLIDER_CARD_WIDTH + SLIDER_SPACING));
-        if (index >= 0 && index < BREAKING_NEWS.length) {
-            setCurrentSlideIndex(index);
+        const virtualIndex = Math.round(offsetX / (SLIDER_CARD_WIDTH + SLIDER_SPACING));
+        currentVirtualIndexRef.current = virtualIndex;
+
+        if (baseSliderLength === 0) {
+            return;
         }
-    };
+
+        const normalizedIndex =
+            ((virtualIndex % baseSliderLength) + baseSliderLength) % baseSliderLength;
+        setCurrentSlideIndex(normalizedIndex);
+
+        if (virtualIndex < baseSliderLength || virtualIndex >= baseSliderLength * 2) {
+            const recenteredIndex = baseSliderLength + normalizedIndex;
+            currentVirtualIndexRef.current = recenteredIndex;
+            sliderRef.current?.scrollToIndex({ index: recenteredIndex, animated: false });
+        }
+    }, [baseSliderLength]);
+
+    useEffect(() => {
+        if (baseSliderLength === 0) {
+            return;
+        }
+
+        const initialVirtualIndex = baseSliderLength + initialMiddleIndex;
+        currentVirtualIndexRef.current = initialVirtualIndex;
+        sliderRef.current?.scrollToIndex({ index: initialVirtualIndex, animated: false });
+    }, [baseSliderLength, initialMiddleIndex]);
+
+    const handleDotPress = useCallback((index: number) => {
+        sliderRef.current?.scrollToIndex({ index: baseSliderLength + index, animated: true });
+        currentVirtualIndexRef.current = baseSliderLength + index;
+        setCurrentSlideIndex(index);
+    }, [baseSliderLength]);
 
     const renderSliderItem = ({ item }: any) => (
         <View style={styles.sliderCard}>
@@ -88,25 +123,40 @@ export default function News() {
             {/* Slider */}
             <View>
                 <FlatList
+                    ref={sliderRef}
                     horizontal
-                    data={BREAKING_NEWS}
-                    keyExtractor={(item) => item.id}
+                    data={loopedBreakingNews}
+                    initialScrollIndex={baseSliderLength + initialMiddleIndex}
+                    keyExtractor={(_, index) => `${index}`}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.sliderListContent}
                     snapToInterval={SLIDER_CARD_WIDTH + SLIDER_SPACING}
-                    snapToAlignment="center"
+                    snapToAlignment="start"
+                    disableIntervalMomentum
+                    bounces={false}
                     decelerationRate="fast"
-                    onScroll={handleScroll}
+                    onScroll={updateSlideIndex}
+                    onMomentumScrollEnd={updateSlideIndex}
                     scrollEventThrottle={16}
+                    directionalLockEnabled
                     ItemSeparatorComponent={SliderSeparator}
+                    getItemLayout={(_, index) => ({
+                        length: SLIDER_CARD_WIDTH + SLIDER_SPACING,
+                        offset: (SLIDER_CARD_WIDTH + SLIDER_SPACING) * index,
+                        index,
+                    })}
+                    onScrollToIndexFailed={() => {
+                        // A graceful fallback prevents the carousel from feeling broken on first load.
+                    }}
                     renderItem={renderSliderItem}
                 />
 
                 {/* Pagination */}
                 <View style={styles.paginationContainer}>
                     {BREAKING_NEWS.map((_, index) => (
-                        <View
+                        <TouchableOpacity
                             key={index}
+                            onPress={() => handleDotPress(index)}
                             style={[
                                 styles.dot,
                                 currentSlideIndex === index && styles.activeDot
@@ -116,41 +166,43 @@ export default function News() {
                 </View>
             </View>
 
-            {/* Categories */}
-            <ScrollView
+            {/* Categories — same chip design as Home Popular prompts */}
+            <FlatList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.categoriesContent}
-                style={styles.categoriesContainer}
-            >
-                {CATEGORIES.map(category => {
+                data={CATEGORIES}
+                keyExtractor={(item) => item}
+                contentContainerStyle={styles.horizontalList}
+                renderItem={({ item: category }) => {
                     const isSelected = selectedCategory === category;
                     return (
                         <TouchableOpacity
-                            key={category}
-                            style={[styles.categoryChip, isSelected && styles.activeCategoryChip]}
+                            style={[styles.promptChip, isSelected && styles.promptChipActive]}
                             onPress={() => setSelectedCategory(category)}
                         >
-                            <Text style={[styles.categoryText, isSelected && styles.activeCategoryText]}>
+                            <Text style={[styles.promptChipText, isSelected && styles.promptChipTextActive]}>
                                 {category}
                             </Text>
                         </TouchableOpacity>
                     );
-                })}
-            </ScrollView>
+                }}
+            />
         </View>
     );
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={NEWS_FEED}
-                keyExtractor={(item) => item.id}
-                ListHeaderComponent={renderHeader}
+            <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.mainFeedContent}
-                renderItem={renderNewsItem}
-            />
+            >
+                {renderHeader()}
+                {NEWS_FEED.map((item) => (
+                    <View key={item.id}>
+                        {renderNewsItem({ item })}
+                    </View>
+                ))}
+            </ScrollView>
         </View>
     );
 }
@@ -162,18 +214,17 @@ const styles = StyleSheet.create({
     },
     mainFeedContent: {
         paddingTop: ResponsivePixels.size60,
-        paddingBottom: ResponsivePixels.size100, // For bottom tab
+        paddingBottom: ResponsivePixels.size100,
     },
     headerContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: ResponsivePixels.size20,
+        paddingHorizontal: ResponsivePixels.size12,
         marginBottom: ResponsivePixels.size20,
     },
     headerTitle: {
-        ...Typography.h6PoppinsSemiBold,
-        fontSize: ResponsivePixels.size20,
+        ...Typography.h5SemiBold,
         color: Colors.MidnightInkText,
     },
     viewAllText: {
@@ -181,7 +232,7 @@ const styles = StyleSheet.create({
         color: Colors.LuminousGreen,
     },
     sliderListContent: {
-        paddingHorizontal: (W - SLIDER_CARD_WIDTH) / 2, // Centering logic
+        paddingHorizontal: (W - SLIDER_CARD_WIDTH) / 2,
     },
     sliderCard: {
         width: SLIDER_CARD_WIDTH,
@@ -193,8 +244,8 @@ const styles = StyleSheet.create({
     },
     sliderOverlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.4)', // Faux gradient overlay
-        top: '40%', // So only bottom half is darkened
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        top: '40%',
     },
     sliderTitle: {
         ...Typography.bodyLargePoppinsSemiBold,
@@ -218,36 +269,36 @@ const styles = StyleSheet.create({
         width: ResponsivePixels.size24,
         backgroundColor: Colors.LuminousGreen,
     },
-    categoriesContainer: {
-        marginVertical: ResponsivePixels.size24,
-    },
-    categoriesContent: {
-        paddingHorizontal: ResponsivePixels.size20,
+    horizontalList: {
+        paddingHorizontal: ResponsivePixels.size12,
         gap: ResponsivePixels.size12,
+        marginBottom: ResponsivePixels.size16,
+        marginTop: ResponsivePixels.size20,
     },
-    categoryChip: {
-        paddingHorizontal: ResponsivePixels.size20,
-        paddingVertical: ResponsivePixels.size10,
-        borderRadius: ResponsivePixels.size20,
+    promptChip: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: ResponsivePixels.size8,
+        paddingHorizontal: ResponsivePixels.size12,
+        paddingVertical: ResponsivePixels.size9,
+        borderRadius: ResponsivePixels.size12,
         borderWidth: 1,
         borderColor: Colors.FogGrey,
         backgroundColor: Colors.DefaultWhite,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
-    activeCategoryChip: {
+    promptChipActive: {
         borderColor: Colors.LuminousGreen,
         backgroundColor: Colors.LuminousGreen,
     },
-    categoryText: {
+    promptChipText: {
         ...Typography.bodyMediumPoppinsMedium,
-        color: Colors.MutedSteelText,
+        color: Colors.MidnightInkText,
     },
-    activeCategoryText: {
+    promptChipTextActive: {
         color: Colors.DefaultWhite,
     },
     newsCard: {
-        marginHorizontal: ResponsivePixels.size20,
+        marginHorizontal: ResponsivePixels.size12,
         marginBottom: ResponsivePixels.size24,
         borderRadius: ResponsivePixels.size20,
         backgroundColor: Colors.DefaultWhite,
@@ -286,7 +337,9 @@ const styles = StyleSheet.create({
         color: Colors.MidnightInkText,
     },
     newsTitle: {
-        ...Typography.bodyLargePoppinsSemiBold,
+        ...Typography.h6PoppinsSemiBold,
+        lineHeight: ResponsivePixels.size28,
+        letterSpacing: 0.1,
         color: Colors.MidnightInkText,
     },
 });
