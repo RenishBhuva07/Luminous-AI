@@ -85,7 +85,7 @@ const CreateAccount: React.FC = () => {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <CustomButton title="Continue" onPress={() => { }} />
+                    <CustomButton title="Continue" onPress={() => navigate('CompleteProfile')} />
                 </View>
 
                 <View style={styles.loginLinkContainer}>

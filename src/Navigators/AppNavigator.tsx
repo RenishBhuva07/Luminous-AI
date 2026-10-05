@@ -5,6 +5,7 @@ import Splash from "../Screens/Splash/Splash";
 import Intro from "../Screens/Intro/Intro";
 import Login from "../Screens/Login/Login";
 import CreateAccount from "../Screens/CreateAccount/CreateAccount";
+import CompleteProfile from "../Screens/CompleteProfile/CompleteProfile";
 import BottomTabs from "./BottomTabs";
 import Notifications from "../Screens/Notifications/Notifications";
 import PrivacySecurity from "../Screens/PrivacySecurity/PrivacySecurity";
@@ -28,6 +29,7 @@ export default function AppNavigator() {
                 <Stack.Screen name="Splash" component={Splash} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="CreateAccount" component={CreateAccount} />
+                <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
                 <Stack.Screen name="BottomTabs" component={BottomTabs} />
                 <Stack.Screen name="Notifications" component={Notifications} />
                 <Stack.Screen name="PrivacySecurity" component={PrivacySecurity} />
