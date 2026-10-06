@@ -27,6 +27,7 @@ import { Typography } from '../../Theme/Typographys';
 import { IMAGES } from '../../Assets/Images';
 import { usePremium } from '../../Context/PremiumContext';
 import PremiumBadge from '../../Common/PremiumBadge';
+import { AuthContext } from '../../Context/AuthContext';
 import { sendMessage } from '../../controllers/chatController';
 import Markdown from 'react-native-markdown-display';
 
@@ -45,6 +46,7 @@ const SUGGESTIONS = [
 
 export default function Chat() {
   const { isPremium } = usePremium();
+  const { user } = React.useContext(AuthContext);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -316,7 +318,7 @@ export default function Chat() {
           <Image source={IMAGES.Luminous_Face} style={styles.underlyingPic} />
           <View>
             <Text style={styles.underlyingGreeting}>Good Morning 👋</Text>
-            <Text style={styles.underlyingName}>Renish Patel</Text>
+            <Text style={styles.underlyingName}>{user?.name || user?.email || 'User'}</Text>
           </View>
         </View>
         <View style={styles.headerRightControls}>

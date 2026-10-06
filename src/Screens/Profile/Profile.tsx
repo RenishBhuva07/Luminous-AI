@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { ToastHelper } from '../../Common/ToastHelper';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import MainContainer from '../../Common/MainContainer';
 import { Colors } from '../../Assets/StyleUtilities/Colors';
 import ResponsivePixels from '../../Assets/StyleUtilities/ResponsivePixels';
@@ -9,15 +10,49 @@ import CustomButton from '../../Common/CustomButton';
 import { goBack } from '../../Navigators/Navigator';
 import { IMAGES } from '../../Assets/Images';
 import { useTheme } from '../../Theme/ThemeContext';
+import { AuthContext } from '../../Context/AuthContext';
+import AuthController from '../../api/controllers/AuthController';
 
 const Profile: React.FC = () => {
     const { Colors } = useTheme();
-    const [name, setName] = useState('Renish Patel');
-    const [email, setEmail] = useState('renish.patel.07@gmail.com');
+    const { user, updateUser } = useContext(AuthContext);
+    const [name, setName] = useState(user?.name || '');
+    const [email, setEmail] = useState(user?.email || '');
+    const [isSaving, setIsSaving] = useState(false);
 
-    const handleSave = () => {
-        // TODO: Implement save logic
-        goBack();
+    useEffect(() => {
+        if (user) {
+            setName(user.name || '');
+            setEmail(user.email || '');
+        }
+    }, [user]);
+
+    const handleSave = async () => {
+        if (!name.trim()) {
+            ToastHelper.error('Full Name is required');
+            return;
+        }
+
+        setIsSaving(true);
+        try {
+            const res = await AuthController.updateProfile({ name: name.trim() });
+            if (res.success) {
+                updateUser({ name: name.trim() });
+                ToastHelper.success(res.message);
+                goBack();
+            } else {
+                ToastHelper.error(res.message);
+            }
+        } catch (error: any) {
+            console.error('Update profile error:', error);
+            ToastHelper.error(
+                error?.response?.data?.error?.message ||
+                error?.response?.data?.message ||
+                error?.message
+            );
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     return (
@@ -67,9 +102,10 @@ const Profile: React.FC = () => {
                 </View>
 
                 <CustomButton
-                    title="Save Changes"
+                    title={isSaving ? "Saving..." : "Save Changes"}
                     onPress={handleSave}
                     style={styles.saveButton}
+                    disabled={isSaving}
                 />
             </ScrollView>
         </MainContainer>

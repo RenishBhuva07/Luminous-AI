@@ -7,6 +7,7 @@ import { Typography } from "../../Theme/Typographys";
 import { IMAGES } from "../../Assets/Images";
 import { usePremium } from "../../Context/PremiumContext";
 import PremiumBadge from "../../Common/PremiumBadge";
+import { AuthContext } from "../../Context/AuthContext";
 
 const POPULAR_PROMPTS = [
     { id: '1', title: 'Crypto', icon: <Bitcoin size={20} color={Colors.MidnightInkText} /> },
@@ -24,6 +25,7 @@ const RECENT_CHATS = [
 
 export default function Home() {
     const { isPremium } = usePremium();
+    const { user } = React.useContext(AuthContext);
 
     return (
         <View style={styles.container}>
@@ -35,7 +37,7 @@ export default function Home() {
                         <Image source={IMAGES.Luminous_Face} style={styles.profilePic} />
                         <View style={styles.userInfo}>
                             <Text style={styles.greetingText}>Good Morning 👋</Text>
-                            <Text style={styles.userNameText}>Renish Patel</Text>
+                            <Text style={styles.userNameText}>{user?.name || user?.email || 'User'}</Text>
                         </View>
                     </View>
                     {/* <TouchableOpacity>
