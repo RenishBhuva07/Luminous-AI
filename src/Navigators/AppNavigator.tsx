@@ -18,6 +18,8 @@ import ArchiveChat from '../Screens/ArchiveChat/ArchiveChat';
 import Devices from '../Screens/Devices/Devices';
 import Payment from '../Screens/Payment/Payment';
 import PaymentDone from '../Screens/PaymentDone/PaymentDone';
+import ChangePassword from '../Screens/ChangePassword/ChangePassword';
+import DeleteAccount from '../Screens/DeleteAccount/DeleteAccount';
 import { AuthContext } from '../Context/AuthContext';
 
 const Stack = createNativeStackNavigator();
@@ -71,6 +73,8 @@ export default function AppNavigator() {
             <Stack.Screen name="Devices" component={Devices} />
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="PaymentDone" component={PaymentDone} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
+            <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
           </>
         )}
       </Stack.Navigator>

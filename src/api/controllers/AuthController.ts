@@ -61,7 +61,11 @@ class AuthController {
         headers['Content-Type'] = 'multipart/form-data';
       }
 
-      const response = await apiClient.patch(API_ENDPOINTS.AUTH.PROFILE, payload, { headers });
+      const response = await apiClient.patch(
+        API_ENDPOINTS.AUTH.PROFILE,
+        payload,
+        { headers },
+      );
       return response.data;
     } catch (error) {
       console.error('AuthController.updateProfile error:', error);
@@ -83,6 +87,22 @@ class AuthController {
       return response.data;
     } catch (error) {
       console.error('AuthController.getProfile error:', error);
+      throw error;
+    }
+  }
+  static async changePassword(data: {
+    currentPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+  }) {
+    try {
+      const response = await apiClient.patch(
+        API_ENDPOINTS.AUTH.CHANGE_PASSWORD,
+        data,
+      );
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.changePassword error:', error);
       throw error;
     }
   }

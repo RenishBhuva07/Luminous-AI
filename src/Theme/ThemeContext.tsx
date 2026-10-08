@@ -45,6 +45,8 @@ export const lightColors = {
     MoonDust: "#F0F0F0",
 
     PrimaryBlue: "#165DFF",
+    SecondaryPurple: '#826EEA',
+    SunburstFlameRed: '#FF4B55',
 };
 
 export const darkColors = {

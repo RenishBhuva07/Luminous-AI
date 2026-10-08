@@ -1,4 +1,4 @@
-import { LogBox, StatusBar, useColorScheme } from 'react-native';
+import { LogBox, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/Navigators/AppNavigator';
 

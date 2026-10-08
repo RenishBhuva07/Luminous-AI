@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { AuthContext } from '../../Context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import { resetNavigation } from '../../Navigators/Navigator';
 import {
   ChevronRight,
   Bookmark,
@@ -197,8 +196,13 @@ export default function Setting() {
 
         {/* Group 4 */}
         <View style={styles.cardGroup}>
-          {renderMenuItem('Log Out', LogOut, '#FF4B55', null, false, () =>
-            setIsLogoutModalVisible(true),
+          {renderMenuItem(
+            'Log Out',
+            LogOut,
+            Colors.SunburstFlameRed,
+            null,
+            false,
+            () => setIsLogoutModalVisible(true),
           )}
         </View>
       </ScrollView>
@@ -380,7 +384,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.FogGrey,
   },
   logoutButton: {
-    backgroundColor: '#FF4B55',
+    backgroundColor: Colors.SunburstFlameRed,
   },
   cancelButtonText: {
     ...Typography.bodyLargePoppinsMedium,

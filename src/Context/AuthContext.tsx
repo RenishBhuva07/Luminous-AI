@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { DeviceEventEmitter } from 'react-native';
 import AuthHelper from '../api/helpers/AuthHelper';
 import AuthController from '../api/controllers/AuthController';
 
@@ -71,6 +72,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
     setRequiresProfileCompletion(false);
   };
+
+  useEffect(() => {
+    const subscription = DeviceEventEmitter.addListener('force_logout', () => {
+      logout();
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return (
     <AuthContext.Provider

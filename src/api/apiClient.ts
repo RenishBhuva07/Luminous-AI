@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { DeviceEventEmitter } from 'react-native';
 import AuthHelper from './helpers/AuthHelper';
 import { API_ENDPOINTS } from './endpoints';
 
@@ -63,6 +64,7 @@ apiClient.interceptors.response.use(
 
       if (!refreshToken) {
         await AuthHelper.clearTokens();
+        DeviceEventEmitter.emit('force_logout');
         return Promise.reject(error);
       }
 
@@ -86,6 +88,7 @@ apiClient.interceptors.response.use(
           .catch(async err => {
             processQueue(err, null);
             await AuthHelper.clearTokens();
+            DeviceEventEmitter.emit('force_logout');
             reject(err);
           })
           .finally(() => {
