@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Alert,
 } from 'react-native';
 import MainContainer from '../../Common/MainContainer';
 import { Colors } from '../../Assets/StyleUtilities/Colors';
@@ -15,18 +14,16 @@ import { Typography } from '../../Theme/Typographys';
 import { ArrowLeft, Check, Eye, EyeOff } from 'lucide-react-native';
 import { FloatingTextInput } from '../../Common/FloatingTextInput';
 import CustomButton from '../../Common/CustomButton';
-import { useNavigation } from '@react-navigation/native';
 import { goBack, navigate } from '../../Navigators/Navigator';
 import { AuthContext } from '../../Context/AuthContext';
 import AuthController from '../../api/controllers/AuthController';
 
 const CreateAccount: React.FC = () => {
-  const navigation = useNavigation();
   const { setAuthState } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [agreed, setAgreed] = useState(true);
+  const [agreed, setAgreed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
@@ -44,7 +41,10 @@ const CreateAccount: React.FC = () => {
       if (res.success && res.data) {
         const profileRes = await AuthController.getProfile();
         if (profileRes.success && profileRes.data?.user) {
-          setAuthState(profileRes.data.user, res.data.requiresProfileCompletion);
+          setAuthState(
+            profileRes.data.user,
+            res.data.requiresProfileCompletion,
+          );
         } else {
           setAuthState(res.data.user, res.data.requiresProfileCompletion);
         }
@@ -56,7 +56,7 @@ const CreateAccount: React.FC = () => {
       ToastHelper.error(
         error?.response?.data?.error?.message ||
           error?.response?.data?.message ||
-          'Registration failed'
+          'Registration failed',
       );
     } finally {
       setIsLoading(false);
@@ -224,15 +224,15 @@ const styles = StyleSheet.create({
     height: ResponsivePixels.size20,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: '#21AF85', // Matches LuminousGreen but could be blue in standard designs. In the image it is a Blue checkbox! Wait, let me check the image. Ah, the checkbox is Blue in the image. Let's use #2374E1
+    borderColor: Colors.LuminousGreen,
     marginRight: ResponsivePixels.size10,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: ResponsivePixels.size2,
   },
   checkboxActive: {
-    backgroundColor: '#2374E1',
-    borderColor: '#2374E1',
+    backgroundColor: Colors.LuminousGreen,
+    borderColor: Colors.LuminousGreen,
   },
   checkboxText: {
     ...Typography.bodyMediumPoppinsRegular,

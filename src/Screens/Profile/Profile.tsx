@@ -12,6 +12,7 @@ import { IMAGES } from '../../Assets/Images';
 import { useTheme } from '../../Theme/ThemeContext';
 import { AuthContext } from '../../Context/AuthContext';
 import AuthController from '../../api/controllers/AuthController';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const Profile: React.FC = () => {
     const { Colors } = useTheme();
@@ -19,6 +20,7 @@ const Profile: React.FC = () => {
     const [name, setName] = useState(user?.name || '');
     const [email, setEmail] = useState(user?.email || '');
     const [isSaving, setIsSaving] = useState(false);
+    const [avatar, setAvatar] = useState<any>(null);
 
     useEffect(() => {
         if (user) {
@@ -26,6 +28,17 @@ const Profile: React.FC = () => {
             setEmail(user.email || '');
         }
     }, [user]);
+
+    const handlePickImage = async () => {
+        const result = await launchImageLibrary({
+            mediaType: 'photo',
+            quality: 0.8,
+        });
+
+        if (!result.didCancel && result.assets && result.assets.length > 0) {
+            setAvatar(result.assets[0]);
+        }
+    };
 
     const handleSave = async () => {
         if (!name.trim()) {
@@ -35,13 +48,17 @@ const Profile: React.FC = () => {
 
         setIsSaving(true);
         try {
-            const res = await AuthController.updateProfile({ name: name.trim() });
+            const res = await AuthController.updateProfile({ 
+                name: name.trim(),
+                ...(avatar ? { avatar } : {})
+            });
             if (res.success) {
-                updateUser({ name: name.trim() });
-                ToastHelper.success(res.message);
+                const newProfilePicture = res.data?.user?.profilePicture || res.data?.user?.avatar || avatar?.uri || user?.profilePicture || user?.avatar;
+                updateUser({ name: name.trim(), profilePicture: newProfilePicture, avatar: newProfilePicture });
+                ToastHelper.success(res.message || 'Profile updated successfully');
                 goBack();
             } else {
-                ToastHelper.error(res.message);
+                ToastHelper.error(res.message || 'Failed to update profile');
             }
         } catch (error: any) {
             console.error('Update profile error:', error);
@@ -76,9 +93,14 @@ const Profile: React.FC = () => {
             >
                 {/* Profile Picture Section */}
                 <View style={styles.profilePicContainer}>
-                    <Image source={IMAGES.Luminous_Face} style={styles.profilePic} />
-                    <TouchableOpacity style={styles.cameraButton}>
-                        <Camera color={Colors.DefaultWhite} size={20} />
+                    <TouchableOpacity activeOpacity={0.8} onPress={handlePickImage}>
+                        <Image 
+                            source={avatar?.uri ? { uri: avatar.uri } : (user?.profilePicture || user?.avatar ? { uri: user?.profilePicture || user?.avatar } : IMAGES.Luminous_Face)} 
+                            style={styles.profilePic} 
+                        />
+                        <View style={styles.cameraButton}>
+                            <Camera color={Colors.DefaultWhite} size={20} />
+                        </View>
                     </TouchableOpacity>
                 </View>
 

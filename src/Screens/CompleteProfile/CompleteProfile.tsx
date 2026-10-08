@@ -24,7 +24,7 @@ import AuthController from '../../api/controllers/AuthController';
 const CompleteProfile: React.FC = () => {
   const { user, setAuthState } = useContext(AuthContext);
   const [name, setName] = useState('');
-  const [avatarUri, setAvatarUri] = useState<string | null>(null);
+  const [avatar, setAvatar] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePickImage = async () => {
@@ -34,7 +34,7 @@ const CompleteProfile: React.FC = () => {
     });
 
     if (!result.didCancel && result.assets && result.assets.length > 0) {
-      setAvatarUri(result.assets[0].uri || null);
+      setAvatar(result.assets[0]);
     }
   };
 
@@ -46,7 +46,10 @@ const CompleteProfile: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const res = await AuthController.updateProfile({ name });
+      const res = await AuthController.updateProfile({ 
+          name,
+          ...(avatar ? { avatar } : {})
+      });
       if (res.success && res.data) {
         // Update global state and disable requiresProfileCompletion to route to Main App
         setAuthState(res.data.user, false);
@@ -98,9 +101,9 @@ const CompleteProfile: React.FC = () => {
             activeOpacity={0.8}
             onPress={handlePickImage}
           >
-            {avatarUri ? (
+            {avatar?.uri ? (
               <Image
-                source={{ uri: avatarUri }}
+                source={{ uri: avatar.uri }}
                 style={styles.avatarPlaceholder}
               />
             ) : (

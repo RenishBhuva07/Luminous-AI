@@ -45,9 +45,23 @@ class AuthController {
     }
   }
 
-  static async updateProfile(data: { name: string }) {
+  static async updateProfile(data: { name?: string; avatar?: any }) {
     try {
-      const response = await apiClient.patch(API_ENDPOINTS.AUTH.PROFILE, data);
+      let payload: any = data;
+      let headers: any = {};
+
+      if (data.avatar) {
+        payload = new FormData();
+        if (data.name) payload.append('name', data.name);
+        payload.append('avatar', {
+          uri: data.avatar.uri,
+          type: data.avatar.type || 'image/jpeg',
+          name: data.avatar.fileName || 'avatar.jpg',
+        } as any);
+        headers['Content-Type'] = 'multipart/form-data';
+      }
+
+      const response = await apiClient.patch(API_ENDPOINTS.AUTH.PROFILE, payload, { headers });
       return response.data;
     } catch (error) {
       console.error('AuthController.updateProfile error:', error);
