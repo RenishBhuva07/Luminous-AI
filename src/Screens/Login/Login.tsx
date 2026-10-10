@@ -5,9 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Alert,
-  ActivityIndicator,
+  Platform,
 } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { ToastHelper } from '../../Common/ToastHelper';
 import MainContainer from '../../Common/MainContainer';
 import { Colors } from '../../Assets/StyleUtilities/Colors';
@@ -16,13 +16,11 @@ import { Typography } from '../../Theme/Typographys';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react-native';
 import { FloatingTextInput } from '../../Common/FloatingTextInput';
 import CustomButton from '../../Common/CustomButton';
-import { useNavigation } from '@react-navigation/native';
 import { goBack, navigate } from '../../Navigators/Navigator';
 import { AuthContext } from '../../Context/AuthContext';
 import AuthController from '../../api/controllers/AuthController';
 
 const Login: React.FC = () => {
-  const navigation = useNavigation();
   const { setAuthState } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,11 +34,21 @@ const Login: React.FC = () => {
     }
     try {
       setIsLoading(true);
-      const res = await AuthController.login({ email, password });
+      const deviceType = Platform.OS === 'ios' ? 'iOS' : 'Android';
+      const deviceName = await DeviceInfo.getDeviceName();
+      const res = await AuthController.login({
+        email,
+        password,
+        deviceName,
+        deviceType,
+      });
       if (res.success && res.data) {
         const profileRes = await AuthController.getProfile();
         if (profileRes.success && profileRes.data?.user) {
-          setAuthState(profileRes.data.user, res.data.requiresProfileCompletion);
+          setAuthState(
+            profileRes.data.user,
+            res.data.requiresProfileCompletion,
+          );
         } else {
           setAuthState(res.data.user, res.data.requiresProfileCompletion);
         }
@@ -49,7 +57,35 @@ const Login: React.FC = () => {
       }
     } catch (error: any) {
       console.error(error);
-      ToastHelper.error(error?.response?.data?.error?.message || error?.response?.data?.message || 'Login failed');
+      ToastHelper.error(
+        error?.response?.data?.error?.message ||
+          error?.response?.data?.message ||
+          'Login failed',
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      ToastHelper.error('Please enter your email to reset password');
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const res = await AuthController.forgotPassword({ email });
+      if (res.success) {
+        ToastHelper.success('OTP sent successfully');
+        navigate('VerifyOTP', { email });
+      }
+    } catch (error: any) {
+      console.error(error);
+      ToastHelper.error(
+        error?.response?.data?.error?.message ||
+          error?.response?.data?.message ||
+          'Failed to send OTP',
+      );
     } finally {
       setIsLoading(false);
     }
@@ -118,7 +154,11 @@ const Login: React.FC = () => {
             }
           />
 
-          <TouchableOpacity style={styles.forgotPasswordContainer}>
+          <TouchableOpacity 
+            style={styles.forgotPasswordContainer}
+            onPress={handleForgotPassword}
+            disabled={isLoading}
+          >
             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
           </TouchableOpacity>
         </View>

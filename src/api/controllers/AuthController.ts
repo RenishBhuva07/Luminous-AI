@@ -7,6 +7,8 @@ class AuthController {
     email: string;
     password: string;
     acceptedTerms: boolean;
+    deviceName?: string;
+    deviceType?: string;
   }) {
     try {
       const response = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, data);
@@ -26,7 +28,12 @@ class AuthController {
     }
   }
 
-  static async login(data: { email: string; password: string }) {
+  static async login(data: {
+    email: string;
+    password: string;
+    deviceName?: string;
+    deviceType?: string;
+  }) {
     try {
       const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, data);
 
@@ -75,9 +82,18 @@ class AuthController {
 
   static async logout() {
     try {
-      await AuthHelper.clearTokens();
+      const refreshToken = await AuthHelper.getRefreshToken();
+      if (refreshToken) {
+        await apiClient.post(API_ENDPOINTS.AUTH.LOGOUT, { refreshToken });
+      }
     } catch (error) {
-      console.error('AuthController.logout error:', error);
+      console.error('AuthController.logout API error:', error);
+    } finally {
+      try {
+        await AuthHelper.clearTokens();
+      } catch (err) {
+        console.error('AuthController.logout clearTokens error:', err);
+      }
     }
   }
 
@@ -103,6 +119,69 @@ class AuthController {
       return response.data;
     } catch (error) {
       console.error('AuthController.changePassword error:', error);
+      throw error;
+    }
+  }
+  static async getSessions() {
+    try {
+      const response = await apiClient.get(API_ENDPOINTS.AUTH.SESSIONS);
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.getSessions error:', error);
+      throw error;
+    }
+  }
+
+  static async deleteSession(sessionId: string) {
+    try {
+      const response = await apiClient.delete(
+        `${API_ENDPOINTS.AUTH.SESSIONS}/${sessionId}`,
+      );
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.deleteSession error:', error);
+      throw error;
+    }
+  }
+  static async deleteAccount(data: { password?: string; reason?: string }) {
+    try {
+      const response = await apiClient.delete(API_ENDPOINTS.AUTH.ACCOUNT, {
+        data,
+      });
+      await AuthHelper.clearTokens();
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.deleteAccount error:', error);
+      throw error;
+    }
+  }
+
+  static async forgotPassword(data: { email: string }) {
+    try {
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, data);
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.forgotPassword error:', error);
+      throw error;
+    }
+  }
+
+  static async verifyResetOtp(data: { email: string; otp: string }) {
+    try {
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.VERIFY_RESET_OTP, data);
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.verifyResetOtp error:', error);
+      throw error;
+    }
+  }
+
+  static async resetPassword(data: { email: string; resetToken: string; newPassword: string; confirmNewPassword: string }) {
+    try {
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.RESET_PASSWORD, data);
+      return response.data;
+    } catch (error) {
+      console.error('AuthController.resetPassword error:', error);
       throw error;
     }
   }

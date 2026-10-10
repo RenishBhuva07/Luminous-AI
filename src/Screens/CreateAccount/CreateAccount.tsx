@@ -6,7 +6,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import MainContainer from '../../Common/MainContainer';
 import { Colors } from '../../Assets/StyleUtilities/Colors';
 import ResponsivePixels from '../../Assets/StyleUtilities/ResponsivePixels';
@@ -33,10 +35,14 @@ const CreateAccount: React.FC = () => {
     }
     try {
       setIsLoading(true);
+      const deviceType = Platform.OS === 'ios' ? 'iOS' : 'Android';
+      const deviceName = await DeviceInfo.getDeviceName();
       const res = await AuthController.register({
         email,
         password,
         acceptedTerms: agreed,
+        deviceName,
+        deviceType,
       });
       if (res.success && res.data) {
         const profileRes = await AuthController.getProfile();

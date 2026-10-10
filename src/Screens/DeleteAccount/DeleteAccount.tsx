@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft, AlertTriangle, EyeOff, Eye } from 'lucide-react-native';
 import MainContainer from '../../Common/MainContainer';
@@ -10,7 +10,8 @@ import { FloatingTextInput } from '../../Common/FloatingTextInput';
 import CustomButton from '../../Common/CustomButton';
 import { AuthContext } from '../../Context/AuthContext';
 import { TouchableOpacity } from 'react-native';
-
+import AuthController from '../../api/controllers/AuthController';
+import { ToastHelper } from '../../Common/ToastHelper';
 export default function DeleteAccount() {
   const { Colors } = useTheme();
   const styles = getStyles(Colors);
@@ -22,9 +23,20 @@ export default function DeleteAccount() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleDelete = async () => {
-    // Implement delete account API call here
-    // After successful deletion, log the user out
-    await logout();
+    try {
+      const res = await AuthController.deleteAccount({ password, reason });
+      if (res?.data?.message) {
+        ToastHelper.success(res.data.message);
+      } else {
+        ToastHelper.success('Account deleted successfully');
+      }
+      await logout();
+    } catch (error: any) {
+      Alert.alert(
+        'Error',
+        error?.response?.data?.message || 'Failed to delete account.',
+      );
+    }
   };
 
   const renderEyeIcon = (show: boolean, toggle: () => void) => (

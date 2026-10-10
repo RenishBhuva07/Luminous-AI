@@ -7,6 +7,8 @@ import Intro from '../Screens/Intro/Intro';
 import Login from '../Screens/Login/Login';
 import CreateAccount from '../Screens/CreateAccount/CreateAccount';
 import CompleteProfile from '../Screens/CompleteProfile/CompleteProfile';
+import VerifyOTP from '../Screens/VerifyOTP/VerifyOTP';
+import ResetPassword from '../Screens/ResetPassword/ResetPassword';
 import BottomTabs from './BottomTabs';
 import Notifications from '../Screens/Notifications/Notifications';
 import PrivacySecurity from '../Screens/PrivacySecurity/PrivacySecurity';
@@ -55,6 +57,8 @@ export default function AppNavigator() {
             <Stack.Screen name="Intro" component={Intro} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="CreateAccount" component={CreateAccount} />
+            <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+            <Stack.Screen name="ResetPassword" component={ResetPassword} />
           </>
         ) : requiresProfileCompletion ? (
           // Logged in but profile incomplete

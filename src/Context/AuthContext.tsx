@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-    await AuthHelper.clearTokens();
+    await AuthController.logout();
     setUser(null);
     setRequiresProfileCompletion(false);
   };
